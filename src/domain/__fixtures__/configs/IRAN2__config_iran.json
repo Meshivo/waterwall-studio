@@ -1,0 +1,103 @@
+{
+    "name": "iran-reverse-reality-server",
+    "variables": {
+        "domain_white": "snapp.ir", // behtare ye domain khob va normal irani bedid. snapp shayad kar nade
+                                    // baya ba json servere kharej yeki bashe
+
+
+        "ip_behind_domain_white": "1.2.3.4", // ro server haye iran dns kharabe pas ip dasti bedid
+
+        "ip_server_kharej": "1.2.3.4/32",
+
+        "user_and_server_kharej_port": 443, // age taghir dadid , server kharej json update konid
+
+        "password": "123654" // must be same with kharej
+
+
+        // if you use Tls Termination, uncomment and set these...
+        // "certificate_path": "/root/fullchain.pem",
+        // "key_path": "/root/privkey.pem"
+    },
+    "nodes": [
+        {
+            "name": "users_inbound",
+            "type": "TcpListener",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": $user_and_server_kharej_port$,
+                "nodelay": true
+            },
+            "next": "bridge_user_side"
+        },
+        // This is tls termination part , use it if you want
+        //    {
+        //      "name": "tls_server_user_side_tls_termination",
+        //      "type": "TlsServer",
+        //      "settings": {
+        //        "cert-file": "/root/fullchain.pem",
+        //        "key-file": "/root/privkey.pem",
+        //         "min-version": "TLSv1.2",
+        //         "max-version": "TLSv1.3",
+        //         "ciphers": "HIGH:!aNULL:!MD5",
+        //         "session-cache": "none",
+        //         "session-tickets": true,
+        //         "verbose": false
+        //      },
+        //      "next": "bridge_user_side"
+        //    },
+        {
+            "name": "bridge_user_side",
+            "type": "Bridge",
+            "settings": {
+                "pair": "bridge_reverse_side"
+            }
+        },
+        {
+            "name": "bridge_reverse_side",
+            "type": "Bridge",
+            "settings": {
+                "pair": "bridge_user_side"
+            }
+        },
+        {
+            "name": "reverse_server",
+            "type": "ReverseServer",
+            "settings": {},
+            "next": "bridge_reverse_side"
+        },
+        {
+            "name": "reality-server",
+            "type": "RealityServer",
+            "settings": {
+                "destination": "dest-visitor",
+                "password":  $password$,
+                "algorithm": "chacha20-poly1305",
+                "kdf-iterations": 12000,
+                "sniffing-attempts": 8
+            },
+            "next": "reverse_server"
+        },
+        {
+            "name": "dest-visitor",
+            "type": "TcpConnector",
+            "settings": {
+                "address": $ip_behind_domain_white$,
+                "port": 443,
+                "nodelay": true
+            }
+        },
+        {
+            "name": "germany_reverse_tls_inbound",
+            "type": "TcpListener",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": $user_and_server_kharej_port$,
+                "nodelay": true,
+                "whitelist": [
+                    $ip_server_kharej$
+                ]
+            },
+            "next": "reality-server"
+        }
+    ]
+}

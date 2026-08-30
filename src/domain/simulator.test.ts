@@ -1,0 +1,6 @@
+import { describe, expect, it } from 'vitest';
+import type { StudioEdge, StudioNode } from '../types';
+import { getDefinition } from './schema';
+import { findPaths, simulatePath } from './simulator';
+const n=(id:string,type:string,settings:Record<string,unknown>={}):StudioNode=>({id,type:'waterwall',position:{x:0,y:0},data:{type,name:id,settings,definition:getDefinition(type)}});
+describe('traffic simulator',()=>{it('calculates deterministic IP rewrites',()=>{const nodes=[n('tun','TunDevice'),n('ip','IpOverrider',{direction:'up',mode:'source-ip',ipv4:'10.0.0.1'})],edges:StudioEdge[]=[{id:'e',source:'tun',target:'ip',sourceHandle:'next',targetHandle:'previous',type:'waterwall'}];const paths=findPaths(nodes,edges),steps=simulatePath(paths[0],nodes,edges);expect(steps.some((step)=>step.after.sourceIp==='10.0.0.1'&&step.fidelity==='deterministic')).toBe(true)});it('marks TLS as symbolic',()=>{const nodes=[n('a','TcpListener'),n('b','TlsServer')],edges:StudioEdge[]=[{id:'e',source:'a',target:'b',sourceHandle:'next',targetHandle:'previous',type:'waterwall'}];expect(simulatePath(findPaths(nodes,edges)[0],nodes,edges).some((step)=>step.nodeId==='b'&&step.fidelity==='symbolic')).toBe(true)})});

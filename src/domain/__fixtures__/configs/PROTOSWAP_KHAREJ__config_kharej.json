@@ -1,0 +1,70 @@
+{
+  "name": "germany-tcp-protoswap",
+  "variables": {
+    "ip_server_iran": "1.1.1.1",
+    "ip_server_kharej": "2.2.2.2",
+    "protoswap_tcp_to_number": 50
+
+  },
+  "nodes": [
+    {
+      "name": "my tun2",
+      "type": "TunDevice",
+      "settings": {
+        "device-name": "wtun1",
+        "device-ip": "10.10.0.1/24"
+      },
+      "next": "ipcorrect"
+    },
+    {
+      "name": "ipcorrect",
+      "type": "IpOverrider",
+      "settings": {
+        "up": {
+          "source-ip": {
+            "ipv4":  $ip_server_kharej$
+          },
+          "dest-ip": {
+            "ipv4":  $ip_server_iran$
+          }
+        },
+        "down": {
+          "source-ip": {
+            "ipv4": "10.10.0.2"
+          },
+          "dest-ip": {
+            "ipv4": "10.10.0.1"
+          }
+        }
+      },
+      "next": "ip-manipulator"
+    },
+    {
+      "name": "ip-manipulator",
+      "type": "IpManipulator",
+      "settings": {
+        "protoswap-tcp": $protoswap_tcp_to_number$
+      },
+      "next": "obfuscator-s"
+    },
+    {
+      "name": "obfuscator-s",
+      "type": "ObfuscatorServer",
+      "settings": {
+        "method": "xor",
+        "xor_key": 90,
+        "skip": "transport"
+      },
+      "next":"rdin"
+    },
+    
+    {
+      "name": "rdin",
+      "type": "RawSocket",
+      "settings": {
+        "capture-filter-mode": "source-ip",
+        "capture-ip": $ip_server_iran$
+      }
+    }
+  ]
+}

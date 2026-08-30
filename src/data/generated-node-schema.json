@@ -1,0 +1,7580 @@
+{
+  "schemaVersion": 2,
+  "sourceCommit": "sha256:1b62e231894571b6327229d6adb5a06f4ba350d6eed7fde924dc5d9453ecec43",
+  "layerGroupConstants": {
+    "None": 1,
+    "L3": 4,
+    "L4": 8,
+    "Anything": 12,
+    "SameAsNext": 16,
+    "SameAsPrev": 32,
+    "OppositeNext": 64,
+    "OppositePrev": 128
+  },
+  "generatedAt": "2026-08-29T06:23:53.425Z",
+  "nodes": [
+    {
+      "type": "AuthenticationClient",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is the frontend side of the Waterwall authentication database protocol. It is a chain-head control",
+      "descriptionFa": "نود AuthenticationClient در زنجیره WaterWall",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "name",
+          "type": "string",
+          "required": false,
+          "labelFa": "name"
+        },
+        {
+          "id": "secret",
+          "type": "string",
+          "required": false,
+          "labelFa": "secret"
+        },
+        {
+          "id": "ping-interval-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "ping-interval-ms"
+        },
+        {
+          "id": "pull-interval-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "pull-interval-ms"
+        },
+        {
+          "id": "push-interval-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "push-interval-ms"
+        },
+        {
+          "id": "reconnect-interval-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "reconnect-interval-ms"
+        },
+        {
+          "id": "request-timeout-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "request-timeout-ms"
+        },
+        {
+          "id": "max-pending-requests",
+          "type": "number",
+          "required": false,
+          "labelFa": "max-pending-requests"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/AuthenticationClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 1,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": false,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "AuthenticationServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/AuthenticationClient/instance/node.c"
+    },
+    {
+      "type": "AuthenticationServer",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is a logical chain-end node for user database management.",
+      "descriptionFa": "نود AuthenticationServer در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [],
+      "settings": [
+        {
+          "id": "db-path",
+          "type": "string",
+          "required": false,
+          "labelFa": "db-path"
+        },
+        {
+          "id": "file-save-rate-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "file-save-rate-ms"
+        },
+        {
+          "id": "session-idle-timeout-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "session-idle-timeout-ms"
+        },
+        {
+          "id": "auth-clients",
+          "type": "json",
+          "required": false,
+          "labelFa": "auth-clients"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": true,
+        "noChain": true,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/AuthenticationServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 1
+      },
+      "capabilities": {
+        "prev": true,
+        "next": false
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/AuthenticationServer/instance/node.c"
+    },
+    {
+      "type": "Bgp4Client",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "wraps upstream stream payloads in BGP-like frames and unwraps downstream frames from `Bgp4Server`.",
+      "descriptionFa": "نود Bgp4Client در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "password",
+          "type": "string",
+          "required": false,
+          "labelFa": "password"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/Bgp4Client",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "Bgp4Server"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/Bgp4Client/instance/node.c"
+    },
+    {
+      "type": "Bgp4Server",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is the peer for `Bgp4Client`. It unwraps upstream BGP-like frames and wraps downstream stream payloads in the reverse direction.",
+      "descriptionFa": "نود Bgp4Server در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "password",
+          "type": "string",
+          "required": false,
+          "labelFa": "password"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/Bgp4Server",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/Bgp4Server/instance/node.c"
+    },
+    {
+      "type": "BlackHole",
+      "version": 1,
+      "category": "خروجی",
+      "description": "is a terminal sink adapter. It is placed at the end of a chain and consumes upstream traffic from the previous node without creating a socket, connecting to a remote peer, or forwarding payload to another node.",
+      "descriptionFa": "مسدودکننده و مسدودسازی ترافیک (سیاه‌چاله)",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [],
+      "settings": [
+        {
+          "id": "mode",
+          "type": "string",
+          "required": false,
+          "labelFa": "mode"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": true,
+        "noChain": true,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/BlackHole",
+      "layerGroups": {
+        "own": 12,
+        "prev": 12,
+        "next": 1
+      },
+      "capabilities": {
+        "prev": true,
+        "next": false
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/BlackHole/instance/node.c"
+    },
+    {
+      "type": "Bridge",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "links two separate places in the same WaterWall configuration. A pair of `Bridge` nodes forwards line events and payload between each other, effectively stitching two otherwise separate chain segments together.",
+      "descriptionFa": "اتصال دو شاخه مستقل زنجیره از طریق نام pair یکسان",
+      "inputs": [
+        {
+          "id": "pair",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 0,
+          "maxConnections": 1,
+          "required": false,
+          "semantic": "route",
+          "labelFa": "جفت"
+        },
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        },
+        {
+          "id": "pair",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 0,
+          "maxConnections": 1,
+          "required": false,
+          "semantic": "route",
+          "labelFa": "جفت"
+        }
+      ],
+      "settings": [
+        {
+          "id": "pair",
+          "type": "string",
+          "required": true,
+          "labelFa": "نام جفت برای اتصال به پل دیگر"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/Bridge",
+      "layerGroups": {
+        "own": 12,
+        "prev": 12,
+        "next": 12
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "ReverseClient",
+        "TesterServer",
+        "TcpConnector",
+        "UdpOverTcpClient",
+        "HeaderServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/Bridge/instance/node.c"
+    },
+    {
+      "type": "ConnectionFisherClient",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is a client-side bridge tunnel that fans one incoming Waterwall line out into several simultaneous outbound candidate lines, sends a fixed `5`-byte probe on each candidate, and keeps the first candidate that proves it reached `ConnectionFisherServer`.",
+      "descriptionFa": "نود ConnectionFisherClient در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "simultaneous-tries-perline",
+          "type": "number",
+          "required": false,
+          "labelFa": "simultaneous-tries-perline"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/ConnectionFisherClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "EncryptionClient",
+        "TcpConnector",
+        "MuxClient"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/ConnectionFisherClient/instance/node.c"
+    },
+    {
+      "type": "ConnectionFisherServer",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is the server-side peer for `ConnectionFisherClient`.",
+      "descriptionFa": "نود ConnectionFisherServer در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/ConnectionFisherServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/ConnectionFisherServer/instance/node.c"
+    },
+    {
+      "type": "ConnectionToPackets",
+      "version": 3,
+      "category": "مسیر و تبدیل",
+      "description": "is the active-open inverse of `PacketsToConnection`. It takes an ordinary WaterWall connection",
+      "descriptionFa": "تبدیل کانکشن‌های استریم به بسته‌های خام IPv4 با آدرس مبدأ مشخص",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "source-ipv4",
+          "type": "string",
+          "required": false,
+          "labelFa": "آدرس IP مبدأ برای بسته‌های خروجی"
+        },
+        {
+          "id": "subnet",
+          "type": "string",
+          "required": false,
+          "labelFa": "ساب‌نت شبکه مجازی lwIP"
+        },
+        {
+          "id": "mtu",
+          "type": "number",
+          "required": false,
+          "labelFa": "mtu"
+        },
+        {
+          "id": "domain-strategy",
+          "type": "string",
+          "required": false,
+          "labelFa": "domain-strategy"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/ConnectionToPackets",
+      "layerGroups": {
+        "own": 12,
+        "prev": 8,
+        "next": 4
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "PacketsToConnection",
+        "PingClient"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/ConnectionToPackets/instance/node.c"
+    },
+    {
+      "type": "Disturber",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is a test tunnel used to simulate unreliable network behavior inside a WaterWall chain. It is designed to help validate other tunnels by injecting drops, corruption, duplication, reordering, delays, hangs, and abrupt closes.",
+      "descriptionFa": "نود Disturber در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "disturb-upstream",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "disturb-upstream"
+        },
+        {
+          "id": "disturb-downstream",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "disturb-downstream"
+        },
+        {
+          "id": "chance_payload_loss",
+          "type": "number",
+          "required": false,
+          "labelFa": "chance_payload_loss"
+        },
+        {
+          "id": "chance_payload_duplication",
+          "type": "number",
+          "required": false,
+          "labelFa": "chance_payload_duplication"
+        },
+        {
+          "id": "chance_payload_out_of_order",
+          "type": "number",
+          "required": false,
+          "labelFa": "chance_payload_out_of_order"
+        },
+        {
+          "id": "chance_payload_delay",
+          "type": "number",
+          "required": false,
+          "labelFa": "chance_payload_delay"
+        },
+        {
+          "id": "delay_min_ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "delay_min_ms"
+        },
+        {
+          "id": "delay_max_ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "delay_max_ms"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/Disturber",
+      "layerGroups": {
+        "own": 12,
+        "prev": 16,
+        "next": 32
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpOverUdpServer",
+        "TesterServer",
+        "PacketReceiver"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/Disturber/instance/node.c"
+    },
+    {
+      "type": "DomainResolver",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is a middle node that resolves a line's destination domain before forwarding that line's `Init`.",
+      "descriptionFa": "نود DomainResolver در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/DomainResolver",
+      "layerGroups": {
+        "own": 12,
+        "prev": 16,
+        "next": 32
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/Internals/DomainResolver/instance/node.c"
+    },
+    {
+      "type": "EncryptionClient",
+      "version": 1,
+      "category": "امنیت",
+      "description": "applies AEAD encryption on upstream traffic and decrypts downstream traffic carried in TLS-like application-data records.",
+      "descriptionFa": "نود EncryptionClient در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "algorithm",
+          "type": "string",
+          "required": false,
+          "labelFa": "algorithm"
+        },
+        {
+          "id": "password",
+          "type": "string",
+          "required": false,
+          "labelFa": "password"
+        },
+        {
+          "id": "salt",
+          "type": "string",
+          "required": false,
+          "labelFa": "salt"
+        },
+        {
+          "id": "kdf-iterations",
+          "type": "number",
+          "required": false,
+          "labelFa": "kdf-iterations"
+        },
+        {
+          "id": "max-frame-size",
+          "type": "number",
+          "required": false,
+          "labelFa": "max-frame-size"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/EncryptionClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "EncryptionServer",
+        "TcpConnector",
+        "TcpUdpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/EncryptionClient/instance/node.c"
+    },
+    {
+      "type": "EncryptionServer",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is the server-side counterpart of `EncryptionClient`.",
+      "descriptionFa": "نود EncryptionServer در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "algorithm",
+          "type": "string",
+          "required": false,
+          "labelFa": "algorithm"
+        },
+        {
+          "id": "password",
+          "type": "string",
+          "required": false,
+          "labelFa": "password"
+        },
+        {
+          "id": "salt",
+          "type": "string",
+          "required": false,
+          "labelFa": "salt"
+        },
+        {
+          "id": "kdf-iterations",
+          "type": "number",
+          "required": false,
+          "labelFa": "kdf-iterations"
+        },
+        {
+          "id": "max-frame-size",
+          "type": "number",
+          "required": false,
+          "labelFa": "max-frame-size"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/EncryptionServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer",
+        "SpeedTestServer",
+        "ConnectionFisherServer",
+        "Socks5Server"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/EncryptionServer/instance/node.c"
+    },
+    {
+      "type": "HalfDuplexClient",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "takes one normal full-duplex line from the previous node and splits it into two separate outbound connections toward the next node:",
+      "descriptionFa": "نود HalfDuplexClient در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/HalfDuplexClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "HalfDuplexServer",
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/HalfDuplexClient/instance/node.c"
+    },
+    {
+      "type": "HalfDuplexServer",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "is the server-side peer of `HalfDuplexClient`. It receives two separate inbound half-connections, matches them by an internal identifier, and reconstructs one normal logical line toward the next node.",
+      "descriptionFa": "نود HalfDuplexServer در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/HalfDuplexServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/HalfDuplexServer/instance/node.c"
+    },
+    {
+      "type": "HeaderClient",
+      "version": 1,
+      "category": "پردازش",
+      "description": "prepends a one-time header to the first upstream payload on each normal layer-4 line.",
+      "descriptionFa": "درج هدر پورت واتروال یا هدر PROXY نسخه ۱ در ابتدای خط",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "data",
+          "type": "string",
+          "required": false,
+          "labelFa": "عبارت داده هدر (مثلاً src_context->port)"
+        },
+        {
+          "id": "proxy-protocol",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "فعال‌سازی PROXY protocol"
+        },
+        {
+          "id": "frontend-ipv4",
+          "type": "string",
+          "required": false,
+          "labelFa": "IPv4 نمای جلویی (اجباری در حالت PROXY protocol)"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/HeaderClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "Bridge"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/HeaderClient/instance/node.c"
+    },
+    {
+      "type": "HeaderServer",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is the server-side reader for small connection metadata headers.",
+      "descriptionFa": "استخراج و حذف هدر پورت واتروال یا هدر PROXY در سرور",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "override",
+          "type": "string",
+          "required": false,
+          "labelFa": "عبارت بازنویسی هدر (مثلاً dest_context->port)"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/HeaderServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/HeaderServer/instance/node.c"
+    },
+    {
+      "type": "HttpClient",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is a stream tunnel that wraps Waterwall payload into an HTTP request on the upstream side and unwraps the HTTP response body on the downstream side.",
+      "descriptionFa": "کپسوله‌سازی داده‌ها در فریم‌های HTTP/1.1 یا HTTP/2 یا WebSocket",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "host",
+          "type": "string",
+          "required": false,
+          "labelFa": "دامنه Host در هدر HTTP"
+        },
+        {
+          "id": "http-version",
+          "type": "string",
+          "required": false,
+          "labelFa": "نسخه HTTP (1.1 یا 2.0)"
+        },
+        {
+          "id": "path",
+          "type": "string",
+          "required": false,
+          "labelFa": "مسیر درخخواست HTTP"
+        },
+        {
+          "id": "scheme",
+          "type": "string",
+          "required": false,
+          "labelFa": "scheme"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "required": false,
+          "labelFa": "port"
+        },
+        {
+          "id": "method",
+          "type": "string",
+          "required": false,
+          "labelFa": "method"
+        },
+        {
+          "id": "http1-split",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "http1-split"
+        },
+        {
+          "id": "split",
+          "type": "json",
+          "required": false,
+          "labelFa": "split"
+        },
+        {
+          "id": "http1-mode",
+          "type": "string",
+          "required": false,
+          "labelFa": "http1-mode"
+        },
+        {
+          "id": "headers",
+          "type": "json",
+          "required": false,
+          "labelFa": "headers"
+        },
+        {
+          "id": "upgrade",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "upgrade"
+        },
+        {
+          "id": "upgrade-protocol",
+          "type": "string",
+          "required": false,
+          "labelFa": "upgrade-protocol"
+        },
+        {
+          "id": "upgrade-request-headers",
+          "type": "json",
+          "required": false,
+          "labelFa": "upgrade-request-headers"
+        },
+        {
+          "id": "upgrade-response-headers",
+          "type": "json",
+          "required": false,
+          "labelFa": "upgrade-response-headers"
+        },
+        {
+          "id": "websocket",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "websocket"
+        },
+        {
+          "id": "websocket-origin",
+          "type": "string",
+          "required": false,
+          "labelFa": "websocket-origin"
+        },
+        {
+          "id": "websocket-subprotocol",
+          "type": "string",
+          "required": false,
+          "labelFa": "websocket-subprotocol"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/HttpClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "HttpServer",
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/HttpClient/instance/node.c"
+    },
+    {
+      "type": "HttpServer",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is the inverse of `HttpClient`.",
+      "descriptionFa": "استخراج داده‌های کاربر از فریم‌های HTTP و WebSocket سرور",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "http-version",
+          "type": "string",
+          "required": false,
+          "labelFa": "نسخه HTTP مورد انتظار"
+        },
+        {
+          "id": "host",
+          "type": "string",
+          "required": false,
+          "labelFa": "host"
+        },
+        {
+          "id": "path",
+          "type": "string",
+          "required": false,
+          "labelFa": "path"
+        },
+        {
+          "id": "method",
+          "type": "string",
+          "required": false,
+          "labelFa": "method"
+        },
+        {
+          "id": "status",
+          "type": "number",
+          "required": false,
+          "labelFa": "status"
+        },
+        {
+          "id": "http1-split",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "http1-split"
+        },
+        {
+          "id": "split",
+          "type": "json",
+          "required": false,
+          "labelFa": "split"
+        },
+        {
+          "id": "http1-mode",
+          "type": "string",
+          "required": false,
+          "labelFa": "http1-mode"
+        },
+        {
+          "id": "no-split-upload-buffering-limit",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "no-split-upload-buffering-limit"
+        },
+        {
+          "id": "upgrade",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "upgrade"
+        },
+        {
+          "id": "upgrade-protocol",
+          "type": "string",
+          "required": false,
+          "labelFa": "upgrade-protocol"
+        },
+        {
+          "id": "upgrade-request-headers",
+          "type": "json",
+          "required": false,
+          "labelFa": "upgrade-request-headers"
+        },
+        {
+          "id": "upgrade-response-headers",
+          "type": "json",
+          "required": false,
+          "labelFa": "upgrade-response-headers"
+        },
+        {
+          "id": "websocket",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "websocket"
+        },
+        {
+          "id": "websocket-origin",
+          "type": "string",
+          "required": false,
+          "labelFa": "websocket-origin"
+        },
+        {
+          "id": "websocket-subprotocol",
+          "type": "string",
+          "required": false,
+          "labelFa": "websocket-subprotocol"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/HttpServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/HttpServer/instance/node.c"
+    },
+    {
+      "type": "IpManipulator",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is a packet tunnel that mutates IPv4 packets in place.",
+      "descriptionFa": "دستکاری و تغییر پروتکل بسته‌ها (Protoswap ESP، Bit-transport و تغییر MSS)",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "protoswap-tcp",
+          "type": "number",
+          "required": false,
+          "labelFa": "شماره پروتکل جایگزین TCP (مثلاً 50 برای ESP)"
+        },
+        {
+          "id": "protoswap-udp",
+          "type": "number",
+          "required": false,
+          "labelFa": "شماره پروتکل جایگزین UDP (مثلاً 50 برای ESP)"
+        },
+        {
+          "id": "bit-transport",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "فعال‌سازی انتقال بیتی"
+        },
+        {
+          "id": "up-tcp-bit-psh",
+          "type": "string",
+          "required": false,
+          "labelFa": "up-tcp-bit-psh"
+        },
+        {
+          "id": "up-tcp-bit-cwr",
+          "type": "string",
+          "required": false,
+          "labelFa": "up-tcp-bit-cwr"
+        },
+        {
+          "id": "dw-tcp-bit-psh",
+          "type": "string",
+          "required": false,
+          "labelFa": "dw-tcp-bit-psh"
+        },
+        {
+          "id": "dw-tcp-bit-rst",
+          "type": "string",
+          "required": false,
+          "labelFa": "dw-tcp-bit-rst"
+        },
+        {
+          "id": "dw-tcp-bit-cwr",
+          "type": "string",
+          "required": false,
+          "labelFa": "dw-tcp-bit-cwr"
+        },
+        {
+          "id": "up-tcp-bit-rst",
+          "type": "string",
+          "required": false,
+          "labelFa": "up-tcp-bit-rst"
+        },
+        {
+          "id": "protoswap",
+          "type": "number",
+          "required": false,
+          "labelFa": "protoswap"
+        },
+        {
+          "id": "sni-blender",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "sni-blender"
+        },
+        {
+          "id": "sni-blender-packets",
+          "type": "number",
+          "required": false,
+          "labelFa": "sni-blender-packets"
+        },
+        {
+          "id": "up-tcp-bit-ece",
+          "type": "string",
+          "required": false,
+          "labelFa": "up-tcp-bit-ece"
+        },
+        {
+          "id": "up-tcp-bit-urg",
+          "type": "string",
+          "required": false,
+          "labelFa": "up-tcp-bit-urg"
+        },
+        {
+          "id": "up-tcp-bit-ack",
+          "type": "string",
+          "required": false,
+          "labelFa": "up-tcp-bit-ack"
+        },
+        {
+          "id": "up-tcp-bit-syn",
+          "type": "string",
+          "required": false,
+          "labelFa": "up-tcp-bit-syn"
+        },
+        {
+          "id": "up-tcp-bit-fin",
+          "type": "string",
+          "required": false,
+          "labelFa": "up-tcp-bit-fin"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/IpManipulator",
+      "layerGroups": {
+        "own": 4,
+        "prev": 12,
+        "next": 12
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "IpOverrider",
+        "RawSocket",
+        "ObfuscatorClient",
+        "ObfuscatorServer",
+        "TesterServer",
+        "Bridge",
+        "IpManipulator"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/IpManipulator/instance/node.c"
+    },
+    {
+      "type": "IpOverrider",
+      "version": 1,
+      "category": "پردازش",
+      "description": "rewrites packet IP addresses as traffic passes through the chain. A single instance can now apply independent overrides for upstream and downstream traffic, and for source and destination IP fields within each direction.",
+      "descriptionFa": "بازنویسی قطعی آدرس‌های IP و پورت‌های مبدأ و مقصد در بسته‌ها",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "up",
+          "type": "json",
+          "required": false,
+          "labelFa": "قواعد تغییر آدرس در مسیر رفت"
+        },
+        {
+          "id": "down",
+          "type": "json",
+          "required": false,
+          "labelFa": "قواعد تغییر آدرس در مسیر برگشت"
+        },
+        {
+          "id": "chance",
+          "type": "number",
+          "required": false,
+          "labelFa": "chance"
+        },
+        {
+          "id": "direction",
+          "type": "string",
+          "required": false,
+          "labelFa": "direction"
+        },
+        {
+          "id": "mode",
+          "type": "string",
+          "required": false,
+          "labelFa": "mode"
+        },
+        {
+          "id": "ipv4",
+          "type": "string",
+          "required": false,
+          "labelFa": "ipv4"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/IpOverrider",
+      "layerGroups": {
+        "own": 4,
+        "prev": 12,
+        "next": 12
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "IpManipulator",
+        "IpOverrider",
+        "RawSocket",
+        "PacketSplitStream",
+        "ObfuscatorServer",
+        "ObfuscatorClient"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/IpOverrider/instance/node.c"
+    },
+    {
+      "type": "JunkDatagramSender",
+      "version": 1,
+      "category": "خروجی",
+      "description": "is a composable middle tunnel that injects generated junk datagram payloads before the first upstream payloads of a line. It is intended for camouflage and protocol-noise experiments around UDP-like paths, while still preserving Waterwall's normal line lifecycle and callback directions.",
+      "descriptionFa": "نود JunkDatagramSender در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/JunkDatagramSender",
+      "layerGroups": {
+        "own": 12,
+        "prev": 16,
+        "next": 32
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/JunkDatagramSender/instance/node.c"
+    },
+    {
+      "type": "KeepAliveClient",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is a small framing tunnel that wraps upstream payloads with a `3`-byte keepalive header and",
+      "descriptionFa": "ارسال سیگنال‌های پینگ دوره‌ای جهت زنده نگه داشتن مسیر کلاینت",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/KeepAliveClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "KeepAliveServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/KeepAliveClient/instance/node.c"
+    },
+    {
+      "type": "KeepAliveServer",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is the peer tunnel for `KeepAliveClient`. It removes the same `3`-byte keepalive framing from",
+      "descriptionFa": "پاسخ‌دهی به پینگ‌های زنده نگه‌دارنده در سرور",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/KeepAliveServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/KeepAliveServer/instance/node.c"
+    },
+    {
+      "type": "LoggerTunnel",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is a transparent Waterwall tunnel that observes payload callbacks without modifying data or changing line lifecycle.",
+      "descriptionFa": "نود LoggerTunnel در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/LoggerTunnel",
+      "layerGroups": {
+        "own": 12,
+        "prev": 16,
+        "next": 32
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/logger/instance/node.c"
+    },
+    {
+      "type": "MuxClient",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "multiplexes many logical WaterWall lines onto a smaller number of shared transport lines. Instead of opening one full transport connection for every child line, it opens a parent connection and packs multiple child streams into framed messages on that parent.",
+      "descriptionFa": "مالتی‌پلس‌کردن چندین خط منطقی روی اتصال‌های مشترک TCP",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "mode",
+          "type": "string",
+          "required": false,
+          "labelFa": "حالت همزمانی (timer/counter/fixed-connections-count)"
+        },
+        {
+          "id": "per-worker-connections-count",
+          "type": "number",
+          "required": false,
+          "labelFa": "تعداد اتصال ثابت به‌ازای هر worker (حالت fixed)"
+        },
+        {
+          "id": "connection-capacity",
+          "type": "number",
+          "required": false,
+          "labelFa": "ظرفیت اتصال (حالت counter)"
+        },
+        {
+          "id": "connection-duration-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "عمر اتصال به میلی‌ثانیه (حالت timer)"
+        },
+        {
+          "id": "child-buffer-limit",
+          "type": "number",
+          "required": false,
+          "labelFa": "child-buffer-limit"
+        },
+        {
+          "id": "child-buffer-pause-tolerance",
+          "type": "number",
+          "required": false,
+          "labelFa": "child-buffer-pause-tolerance"
+        },
+        {
+          "id": "parent-buffer-limit",
+          "type": "number",
+          "required": false,
+          "labelFa": "parent-buffer-limit"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/MuxClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "MuxServer",
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/MuxClient/instance/node.c"
+    },
+    {
+      "type": "MuxServer",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "is the server-side peer of `MuxClient`. It receives one shared parent transport line carrying framed MUX traffic, creates child lines on demand when `Open` frames arrive, and forwards each child stream to the next node as if it were a normal independent line.",
+      "descriptionFa": "دی‌مالتی‌پلس‌کردن خطوط منطقی دریافت شده از MuxClient",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "max-children",
+          "type": "number",
+          "required": false,
+          "labelFa": "حداکثر تعداد فرزندان مجاز"
+        },
+        {
+          "id": "child-buffer-limit",
+          "type": "number",
+          "required": false,
+          "labelFa": "child-buffer-limit"
+        },
+        {
+          "id": "child-buffer-pause-tolerance",
+          "type": "number",
+          "required": false,
+          "labelFa": "child-buffer-pause-tolerance"
+        },
+        {
+          "id": "parent-buffer-limit",
+          "type": "number",
+          "required": false,
+          "labelFa": "parent-buffer-limit"
+        },
+        {
+          "id": "max-live-children",
+          "type": "number",
+          "required": false,
+          "labelFa": "max-live-children"
+        },
+        {
+          "id": "memory-fallback-max-live-children",
+          "type": "number",
+          "required": false,
+          "labelFa": "memory-fallback-max-live-children"
+        },
+        {
+          "id": "memory-high-watermark-percent",
+          "type": "number",
+          "required": false,
+          "labelFa": "memory-high-watermark-percent"
+        },
+        {
+          "id": "memory-low-watermark-percent",
+          "type": "number",
+          "required": false,
+          "labelFa": "memory-low-watermark-percent"
+        },
+        {
+          "id": "memory-reserve",
+          "type": "number",
+          "required": false,
+          "labelFa": "memory-reserve"
+        },
+        {
+          "id": "initial-child-idle-timeout-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "initial-child-idle-timeout-ms"
+        },
+        {
+          "id": "active-child-idle-timeout-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "active-child-idle-timeout-ms"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/MuxServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer",
+        "TcpConnector",
+        "ConnectionFisherServer",
+        "Router",
+        "SpeedTestServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/MuxServer/instance/node.c"
+    },
+    {
+      "type": "ObfuscatorClient",
+      "version": 1,
+      "category": "امنیت",
+      "description": "applies a reversible payload transform to traffic passing through it. In the current implementation, the only supported method is XOR obfuscation.",
+      "descriptionFa": "مخفی‌سازی و هش‌کردن بایت‌های داده سمت کلاینت",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "xor_key",
+          "type": "string",
+          "required": false,
+          "labelFa": "کلید کلیدپذیر XOR"
+        },
+        {
+          "id": "method",
+          "type": "string",
+          "required": false,
+          "labelFa": "روش مخفی‌سازی (xor)"
+        },
+        {
+          "id": "skip",
+          "type": "string",
+          "required": false,
+          "labelFa": "skip"
+        },
+        {
+          "id": "tls_record_header",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "tls_record_header"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/ObfuscatorClient",
+      "layerGroups": {
+        "own": 12,
+        "prev": 16,
+        "next": 32
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "IpManipulator",
+        "RawSocket",
+        "ObfuscatorServer",
+        "TcpConnector",
+        "Bridge"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/ObfuscatorClient/instance/node.c"
+    },
+    {
+      "type": "ObfuscatorServer",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is the server-side peer of `ObfuscatorClient`. It applies the same reversible payload transform in the same WaterWall callback directions as the client side: upstream payload is transformed before forwarding to the next node, and downstream payload is restored before forwarding to the previous node.",
+      "descriptionFa": "رمزگشایی و آشکارسازی بایت‌های مخفی‌شده سمت سرور",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "xor_key",
+          "type": "string",
+          "required": false,
+          "labelFa": "کلید کلیدپذیر XOR"
+        },
+        {
+          "id": "method",
+          "type": "string",
+          "required": false,
+          "labelFa": "روش آشکارسازی (xor)"
+        },
+        {
+          "id": "skip",
+          "type": "string",
+          "required": false,
+          "labelFa": "skip"
+        },
+        {
+          "id": "tls_record_header",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "tls_record_header"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/ObfuscatorServer",
+      "layerGroups": {
+        "own": 12,
+        "prev": 16,
+        "next": 32
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "IpManipulator",
+        "RawSocket",
+        "TesterServer",
+        "Bridge",
+        "SpeedTestServer",
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/ObfuscatorServer/instance/node.c"
+    },
+    {
+      "type": "PacketReceiver",
+      "version": 1,
+      "category": "ورودی",
+      "description": "is an endpoint IPv4 packet counter. It groups packets by source IP, compares them against an expected",
+      "descriptionFa": "نود PacketReceiver در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "source-ipv4-range",
+          "type": "string",
+          "required": false,
+          "labelFa": "source-ipv4-range"
+        },
+        {
+          "id": "expected-packets-per-ip",
+          "type": "number",
+          "required": false,
+          "labelFa": "expected-packets-per-ip"
+        },
+        {
+          "id": "report-after-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "report-after-ms"
+        },
+        {
+          "id": "output-file",
+          "type": "string",
+          "required": false,
+          "labelFa": "output-file"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/PacketReceiver",
+      "layerGroups": {
+        "own": 4,
+        "prev": 4,
+        "next": 4
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "Bridge"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/PacketReceiver/instance/node.c"
+    },
+    {
+      "type": "PacketSender",
+      "version": 1,
+      "category": "خروجی",
+      "description": "is a layer-3 IPv4 packet generator. It pre-builds packets at startup and sends them across the worker",
+      "descriptionFa": "نود PacketSender در زنجیره WaterWall",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "source-ipv4-range",
+          "type": "string",
+          "required": false,
+          "labelFa": "source-ipv4-range"
+        },
+        {
+          "id": "dest-ipv4",
+          "type": "string",
+          "required": false,
+          "labelFa": "dest-ipv4"
+        },
+        {
+          "id": "protocol-number",
+          "type": "string",
+          "required": false,
+          "labelFa": "protocol-number"
+        },
+        {
+          "id": "duration-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "duration-ms"
+        },
+        {
+          "id": "packets-per-ip",
+          "type": "number",
+          "required": false,
+          "labelFa": "packets-per-ip"
+        },
+        {
+          "id": "src-port",
+          "type": "number",
+          "required": false,
+          "labelFa": "src-port"
+        },
+        {
+          "id": "dest-port",
+          "type": "number",
+          "required": false,
+          "labelFa": "dest-port"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": true
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/PacketSender",
+      "layerGroups": {
+        "own": 4,
+        "prev": 1,
+        "next": 4
+      },
+      "capabilities": {
+        "prev": false,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "UdpConnector",
+        "Disturber",
+        "PingClient"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/PacketSender/instance/node.c"
+    },
+    {
+      "type": "PacketSplitStream",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "takes one worker packet line from the left side and splits it into two persistent stream-facing lines:",
+      "descriptionFa": "تقسیم مسیر بسته به دو شاخه مجزای رفت (up) و برگشت (down)",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "up",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "up",
+          "labelFa": "رفت"
+        },
+        {
+          "id": "down",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "down",
+          "labelFa": "برگشت"
+        }
+      ],
+      "settings": [
+        {
+          "id": "up",
+          "type": "string",
+          "required": false,
+          "labelFa": "نام نود هدف در مسیر رفت"
+        },
+        {
+          "id": "down",
+          "type": "string",
+          "required": false,
+          "labelFa": "نام نود هدف در مسیر برگشت"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/PacketSplitStream",
+      "layerGroups": {
+        "own": 4,
+        "prev": 4,
+        "next": 4
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/PacketSplitStream/instance/node.c"
+    },
+    {
+      "type": "PacketsToConnection",
+      "version": 3,
+      "category": "مسیر و تبدیل",
+      "description": "is a packet-to-transport bridge built on lwIP.",
+      "descriptionFa": "بازسازی جریان‌های TCP/UDP در پشته lwIP و تبدیل به کانکشن استریم",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/PacketsToConnection",
+      "layerGroups": {
+        "own": 12,
+        "prev": 4,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector",
+        "UdpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/PacketsToConnection/instance/node.c"
+    },
+    {
+      "type": "PacketsToStream",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "adapts a packet-oriented side of the chain to a stream-oriented side.",
+      "descriptionFa": "تبدیل بسته‌های خام لایه ۳ به استریم لایه ۴ بر اساس طول IPv4",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "sensitive-mode",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "فعال‌سازی حالت ضربان قلب (Heartbeat)"
+        },
+        {
+          "id": "interval-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "فاصله زمانی ارسال پینگ (میلی‌ثانیه)"
+        },
+        {
+          "id": "tolerance-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "حداکثر زمان انتظار پاسخ (میلی‌ثانیه)"
+        },
+        {
+          "id": "packet-validation-level",
+          "type": "string",
+          "required": false,
+          "labelFa": "سطح اعتبارسنجی (none/loose/hard)"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/PacketsToStream",
+      "layerGroups": {
+        "own": 12,
+        "prev": 4,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "StreamToPackets",
+        "UdpConnector",
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/PacketsToStream/instance/node.c"
+    },
+    {
+      "type": "PingClient",
+      "version": 2,
+      "category": "پردازش",
+      "description": "is the client-side endpoint of Ping wire v2, an IPv4-only packet",
+      "descriptionFa": "نود PingClient در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "local-ipv4",
+          "type": "string",
+          "required": false,
+          "labelFa": "local-ipv4"
+        },
+        {
+          "id": "peer-ipv4",
+          "type": "string",
+          "required": false,
+          "labelFa": "peer-ipv4"
+        },
+        {
+          "id": "identifier",
+          "type": "number",
+          "required": false,
+          "labelFa": "identifier"
+        },
+        {
+          "id": "sequence-start",
+          "type": "number",
+          "required": false,
+          "labelFa": "sequence-start"
+        },
+        {
+          "id": "ttl",
+          "type": "number",
+          "required": false,
+          "labelFa": "ttl"
+        },
+        {
+          "id": "tos",
+          "type": "number",
+          "required": false,
+          "labelFa": "tos"
+        },
+        {
+          "id": "strategy",
+          "type": "string",
+          "required": false,
+          "labelFa": "strategy"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/PingClient",
+      "layerGroups": {
+        "own": 4,
+        "prev": 4,
+        "next": 4
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "PingServer",
+        "PacketReceiver"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/PingClient/instance/node.c"
+    },
+    {
+      "type": "PingServer",
+      "version": 2,
+      "category": "پردازش",
+      "description": "is the server-side endpoint of Ping wire v2. It is an IPv4-only,",
+      "descriptionFa": "نود PingServer در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "local-ipv4",
+          "type": "string",
+          "required": false,
+          "labelFa": "local-ipv4"
+        },
+        {
+          "id": "peer-ipv4",
+          "type": "string",
+          "required": false,
+          "labelFa": "peer-ipv4"
+        },
+        {
+          "id": "identifier",
+          "type": "number",
+          "required": false,
+          "labelFa": "identifier"
+        },
+        {
+          "id": "sequence-start",
+          "type": "number",
+          "required": false,
+          "labelFa": "sequence-start"
+        },
+        {
+          "id": "ttl",
+          "type": "number",
+          "required": false,
+          "labelFa": "ttl"
+        },
+        {
+          "id": "tos",
+          "type": "number",
+          "required": false,
+          "labelFa": "tos"
+        },
+        {
+          "id": "strategy",
+          "type": "string",
+          "required": false,
+          "labelFa": "strategy"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/PingServer",
+      "layerGroups": {
+        "own": 4,
+        "prev": 4,
+        "next": 4
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TunDevice",
+        "TesterServer",
+        "PacketsToConnection"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/PingServer/instance/node.c"
+    },
+    {
+      "type": "RawSocket",
+      "version": 3,
+      "category": "ورودی",
+      "description": "connects WaterWall to raw IPv4 packet capture and raw packet injection. It captures matching IP packets from the host networking stack and forwards them into the chain, and it can also inject raw IP packets coming from the chain back into the system.",
+      "descriptionFa": "دریافت و ارسال مستقیم بسته‌های خام IP روی کارت شبکه",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "capture-ip",
+          "type": "string",
+          "required": false,
+          "labelFa": "آدرس IP جهت شنود و ارسال"
+        },
+        {
+          "id": "interface",
+          "type": "string",
+          "required": false,
+          "labelFa": "نام کارت شبکه اصلی"
+        },
+        {
+          "id": "capture-device-name",
+          "type": "string",
+          "required": false,
+          "labelFa": "capture-device-name"
+        },
+        {
+          "id": "raw-device-name",
+          "type": "string",
+          "required": false,
+          "labelFa": "raw-device-name"
+        },
+        {
+          "id": "capture-filter-mode",
+          "type": "string",
+          "required": false,
+          "labelFa": "capture-filter-mode"
+        },
+        {
+          "id": "capture-ips",
+          "type": "json",
+          "required": false,
+          "labelFa": "capture-ips"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/RawSocket",
+      "layerGroups": {
+        "own": 4,
+        "prev": 4,
+        "next": 4
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "PingServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/RawSocket/instance/node.c"
+    },
+    {
+      "type": "RealityClient",
+      "version": 2,
+      "category": "امنیت",
+      "description": "implements Reality v2. It performs a real client TLS handshake through an internal `TlsClient`, derives fresh directional session keys from that handshake, and then takes over the raw connection. TLS 1.3 uses an authenticated request/ack/confirm handoff before application records begin; TLS 1.2 retains the existing immediate profile-aware takeover.",
+      "descriptionFa": "لایه کلاینت Reality جهت شبیه‌سازی ترافیک عادی و عبور از فیلترینگ",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "sni",
+          "type": "string",
+          "required": true,
+          "labelFa": "دامنه SNI هدف"
+        },
+        {
+          "id": "password",
+          "type": "string",
+          "required": true,
+          "labelFa": "کلید امنیتی Reality"
+        },
+        {
+          "id": "short-id",
+          "type": "string",
+          "required": false,
+          "labelFa": "شناسه کوتاه (Short ID)"
+        },
+        {
+          "id": "public-key",
+          "type": "string",
+          "required": false,
+          "labelFa": "کلید عمومی (Public Key)"
+        },
+        {
+          "id": "verify",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "verify"
+        },
+        {
+          "id": "algorithm",
+          "type": "string",
+          "required": false,
+          "labelFa": "algorithm"
+        },
+        {
+          "id": "salt",
+          "type": "string",
+          "required": false,
+          "labelFa": "salt"
+        },
+        {
+          "id": "kdf-iterations",
+          "type": "number",
+          "required": false,
+          "labelFa": "kdf-iterations"
+        },
+        {
+          "id": "max-frame-size",
+          "type": "number",
+          "required": false,
+          "labelFa": "max-frame-size"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/RealityClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector",
+        "BlackHole",
+        "RealityServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/RealityClient/instance/node.c"
+    },
+    {
+      "type": "RealityServer",
+      "version": 2,
+      "category": "امنیت",
+      "description": "implements Reality v2. It starts each connection as a visitor TCP bridge, passively extracts the real ClientHello and final ServerHello binding, and only then tests client-to-server records with fresh per-connection session keys. TLS 1.3 requires an authenticated request/ack/confirm handoff before the visitor branch is closed and the same Waterwall line switches to the normal `next` chain. TLS 1.2 retains its immediate profile-aware authorization path.",
+      "descriptionFa": "لایه سرور Reality جهت جداسازی ترافیک احرازشده از بازدیدکننده معمولی",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "destination",
+          "type": "string",
+          "required": true,
+          "labelFa": "مقصد ترافیک معمولی (آدرس:پورت)"
+        },
+        {
+          "id": "password",
+          "type": "string",
+          "required": true,
+          "labelFa": "کلید امنیتی Reality"
+        },
+        {
+          "id": "private-key",
+          "type": "string",
+          "required": false,
+          "labelFa": "کلید خصوصی (Private Key)"
+        },
+        {
+          "id": "algorithm",
+          "type": "string",
+          "required": false,
+          "labelFa": "algorithm"
+        },
+        {
+          "id": "salt",
+          "type": "string",
+          "required": false,
+          "labelFa": "salt"
+        },
+        {
+          "id": "kdf-iterations",
+          "type": "number",
+          "required": false,
+          "labelFa": "kdf-iterations"
+        },
+        {
+          "id": "sniffing-attempts",
+          "type": "number",
+          "required": false,
+          "labelFa": "sniffing-attempts"
+        },
+        {
+          "id": "max-frame-size",
+          "type": "number",
+          "required": false,
+          "labelFa": "max-frame-size"
+        },
+        {
+          "id": "tls12-gcm-server-nonce-policy",
+          "type": "string",
+          "required": false,
+          "labelFa": "tls12-gcm-server-nonce-policy"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/RealityServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer",
+        "TcpConnector",
+        "ReverseServer",
+        "SpeedTestServer",
+        "Http2Server",
+        "BlackHole"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/RealityServer/instance/node.c"
+    },
+    {
+      "type": "ReverseClient",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "keeps a pool of pre-opened reverse connections toward a remote `ReverseServer`. When one of those waiting reverse connections starts carrying real traffic, `ReverseClient` creates a local-facing line for the previous node and forwards traffic through that reverse channel.",
+      "descriptionFa": "ایجاد تونل معکوس سمت کلاینت برای عبور از NAT و فایروال",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "reverse-secret",
+          "type": "string",
+          "required": true,
+          "labelFa": "کلید رمز تونل معکوس"
+        },
+        {
+          "id": "minimum-unused",
+          "type": "number",
+          "required": false,
+          "labelFa": "minimum-unused"
+        },
+        {
+          "id": "reverse-secret-length",
+          "type": "number",
+          "required": false,
+          "labelFa": "reverse-secret-length"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/ReverseClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "RealityClient",
+        "TcpConnector",
+        "ProtoBufClient"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/ReverseClient/instance/node.c"
+    },
+    {
+      "type": "ReverseServer",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "is the server-side peer for `ReverseClient`. It receives pre-opened reverse connections from one side, receives real traffic from the other side, and pairs those two halves together so data can flow through the reverse tunnel.",
+      "descriptionFa": "مدیریت تونل معکوس سمت سرور و برقراری ارتباط با کلاینت پشت NAT",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "reverse-secret",
+          "type": "string",
+          "required": true,
+          "labelFa": "کلید رمز تونل معکوس"
+        },
+        {
+          "id": "reverse-secret-length",
+          "type": "number",
+          "required": false,
+          "labelFa": "reverse-secret-length"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/ReverseServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "Bridge"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/ReverseServer/instance/node.c"
+    },
+    {
+      "type": "Router",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "commits as early as its configured matchers allow. A configuration",
+      "descriptionFa": "نود Router در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "resolve-domains",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "resolve-domains"
+        },
+        {
+          "id": "rules",
+          "type": "json",
+          "required": false,
+          "labelFa": "rules"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/Router",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector",
+        "UdpConnector",
+        "TcpUdpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/Router/instance/node.c"
+    },
+    {
+      "type": "SniffRouter",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "is primarily a simple, convenient layer-4 routing node for common",
+      "descriptionFa": "نود SniffRouter در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "routes",
+          "type": "json",
+          "required": false,
+          "labelFa": "routes"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/SniffRouter",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector",
+        "TesterServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/SniffRouter/instance/node.c"
+    },
+    {
+      "type": "Socks5Client",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is a stream middle-tunnel that speaks the client side of the SOCKS5 protocol.",
+      "descriptionFa": "اتصال به سرور پروکسی SOCKS5 بالادست",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "address",
+          "type": "string",
+          "required": true,
+          "labelFa": "آدرس پروکسی SOCKS5"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "required": true,
+          "labelFa": "پورت پروکسی SOCKS5"
+        },
+        {
+          "id": "protocol",
+          "type": "string",
+          "required": false,
+          "labelFa": "protocol"
+        },
+        {
+          "id": "domain-strategy",
+          "type": "string",
+          "required": false,
+          "labelFa": "domain-strategy"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/Socks5Client",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpUdpConnector",
+        "TcpConnector",
+        "EncryptionClient",
+        "Router"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/Socks5Client/instance/node.c"
+    },
+    {
+      "type": "Socks5Server",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is a server-side SOCKS5 middle tunnel for Waterwall.",
+      "descriptionFa": "پذیرش درخواست‌های پروکسی SOCKS5 در ورودی زنجیره",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "udp",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "پشتیبانی از ترافیک UDP"
+        },
+        {
+          "id": "auth",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "نیازمند نام‌کاربری و رمز عبور"
+        },
+        {
+          "id": "no-auth",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "no-auth"
+        },
+        {
+          "id": "connect",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "connect"
+        },
+        {
+          "id": "ipv4",
+          "type": "string",
+          "required": false,
+          "labelFa": "ipv4"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/Socks5Server",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "UdpConnector",
+        "ConnectionToPackets",
+        "TcpUdpConnector",
+        "Router",
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/Socks5Server/instance/node.c"
+    },
+    {
+      "type": "SoftIpLimiter",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is a stream middle tunnel that limits how many source IP addresses may use the same early VLESS or",
+      "descriptionFa": "نود SoftIpLimiter در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "identifier",
+          "type": "string",
+          "required": false,
+          "labelFa": "identifier"
+        },
+        {
+          "id": "simultaneous-user-limit",
+          "type": "number",
+          "required": false,
+          "labelFa": "simultaneous-user-limit"
+        },
+        {
+          "id": "tolerance-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "tolerance-ms"
+        },
+        {
+          "id": "on-identification-failure",
+          "type": "string",
+          "required": false,
+          "labelFa": "on-identification-failure"
+        },
+        {
+          "id": "verbose",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "verbose"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/SoftIpLimiter",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "VlessServer",
+        "BlackHole",
+        "TesterServer",
+        "TrojanServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/SoftIpLimiter/instance/node.c"
+    },
+    {
+      "type": "SpeedLimit",
+      "version": 1,
+      "category": "پردازش",
+      "description": "slows traffic down to a configured maximum rate.",
+      "descriptionFa": "محدودکننده سرعت و پهنای باند ترافیک",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "kilo-bytes-per-sec",
+          "type": "number",
+          "required": true,
+          "labelFa": "حداکثر نرخ انتقال (کیلوبایت بر ثانیه)"
+        },
+        {
+          "id": "limit-mode",
+          "type": "string",
+          "required": true,
+          "labelFa": "دامنه محدودیت (per-connection/per-line/all-connections/all-lines)"
+        },
+        {
+          "id": "work-mode",
+          "type": "string",
+          "required": true,
+          "labelFa": "رفتار هنگام تجاوز (drop یا pause)"
+        },
+        {
+          "id": "token-recharge-rate",
+          "type": "number",
+          "required": false,
+          "labelFa": "فاصله شارژ توکن به میلی‌ثانیه"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/SpeedLimit",
+      "layerGroups": {
+        "own": 12,
+        "prev": 16,
+        "next": 32
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/SpeedLimit/instance/node.c"
+    },
+    {
+      "type": "SpeedTestClient",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is a synthetic chain-head bandwidth test tunnel. It creates normal WaterWall lines, sends framed",
+      "descriptionFa": "نود SpeedTestClient در زنجیره WaterWall",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "mode",
+          "type": "string",
+          "required": false,
+          "labelFa": "mode"
+        },
+        {
+          "id": "direction",
+          "type": "string",
+          "required": false,
+          "labelFa": "direction"
+        },
+        {
+          "id": "duration-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "duration-ms"
+        },
+        {
+          "id": "warmup-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "warmup-ms"
+        },
+        {
+          "id": "report-interval-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "report-interval-ms"
+        },
+        {
+          "id": "connection-count",
+          "type": "number",
+          "required": false,
+          "labelFa": "connection-count"
+        },
+        {
+          "id": "payload-size",
+          "type": "number",
+          "required": false,
+          "labelFa": "payload-size"
+        },
+        {
+          "id": "json-summary",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "json-summary"
+        },
+        {
+          "id": "terminate-on-complete",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "terminate-on-complete"
+        },
+        {
+          "id": "target-megabits-per-sec",
+          "type": "number",
+          "required": false,
+          "labelFa": "target-megabits-per-sec"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/SpeedTestClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 1,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": false,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector",
+        "EncryptionClient",
+        "RealityClient",
+        "TcpOverUdpClient",
+        "TlsClient",
+        "SpeedTestServer",
+        "MuxClient",
+        "ObfuscatorClient",
+        "UdpOverTcpClient",
+        "UdpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/SpeedTestClient/instance/node.c"
+    },
+    {
+      "type": "SpeedTestServer",
+      "version": 1,
+      "category": "پردازش",
+      "description": "is the chain-end peer for `SpeedTestClient`. It accepts speed-test frames from upstream, validates",
+      "descriptionFa": "نود SpeedTestServer در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [],
+      "settings": [
+        {
+          "id": "report-interval-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "report-interval-ms"
+        },
+        {
+          "id": "json-summary",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "json-summary"
+        },
+        {
+          "id": "quiet",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "quiet"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/SpeedTestServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 1
+      },
+      "capabilities": {
+        "prev": true,
+        "next": false
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/SpeedTestServer/instance/node.c"
+    },
+    {
+      "type": "StreamToPackets",
+      "version": 1,
+      "category": "مسیر و تبدیل",
+      "description": "is the inverse adapter of `PacketsToStream`.",
+      "descriptionFa": "بازسازی بسته‌های خام لایه ۳ از استریم لایه ۴",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "sensitive-mode",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "فعال‌سازی حالت ضربان قلب (Heartbeat)"
+        },
+        {
+          "id": "interval-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "فاصله زمانی ارسال پینگ (میلی‌ثانیه)"
+        },
+        {
+          "id": "tolerance-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "حداکثر زمان انتظار پاسخ (میلی‌ثانیه)"
+        },
+        {
+          "id": "packet-validation-level",
+          "type": "string",
+          "required": false,
+          "labelFa": "packet-validation-level"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/StreamToPackets",
+      "layerGroups": {
+        "own": 12,
+        "prev": 8,
+        "next": 4
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/StreamToPackets/instance/node.c"
+    },
+    {
+      "type": "TcpConnector",
+      "version": 1,
+      "category": "خروجی",
+      "description": "is an outbound TCP client node. It builds a destination address from its own configuration or from the line routing context, opens a TCP connection, and forwards traffic between the previous node and the remote server.",
+      "descriptionFa": "برقراری اتصال TCP به مقصد",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [],
+      "settings": [
+        {
+          "id": "address",
+          "type": "string",
+          "required": true,
+          "labelFa": "آدرس مقصد"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "required": true,
+          "labelFa": "پورت مقصد"
+        },
+        {
+          "id": "nodelay",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "nodelay"
+        },
+        {
+          "id": "fastopen",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "fastopen"
+        },
+        {
+          "id": "addresses",
+          "type": "json",
+          "required": false,
+          "labelFa": "addresses"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TcpConnector",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 1
+      },
+      "capabilities": {
+        "prev": true,
+        "next": false
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/TcpConnector/instance/node.c"
+    },
+    {
+      "type": "TcpListener",
+      "version": 1,
+      "category": "ورودی",
+      "description": "is a TCP server node. It listens for inbound TCP connections, creates a new line for each accepted client, and passes that line upstream to the next node in the chain.",
+      "descriptionFa": "دریافت اتصال‌های TCP و تحویل آن‌ها به زنجیره",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "address",
+          "type": "string",
+          "required": false,
+          "labelFa": "آدرس شنود"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "required": true,
+          "labelFa": "پورت شنود"
+        },
+        {
+          "id": "whitelist",
+          "type": "string",
+          "required": false,
+          "labelFa": "whitelist"
+        },
+        {
+          "id": "nodelay",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "nodelay"
+        },
+        {
+          "id": "initial-idle-timeout-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "initial-idle-timeout-ms"
+        },
+        {
+          "id": "active-idle-timeout-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "active-idle-timeout-ms"
+        },
+        {
+          "id": "port-range",
+          "type": "json",
+          "required": false,
+          "labelFa": "port-range"
+        },
+        {
+          "id": "multiport-backend",
+          "type": "string",
+          "required": false,
+          "labelFa": "multiport-backend"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TcpListener",
+      "layerGroups": {
+        "own": 8,
+        "prev": 1,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": false,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "RealityServer",
+        "TlsServer",
+        "TesterServer",
+        "VlessServer",
+        "RealityClient",
+        "TcpConnector",
+        "HttpServer",
+        "Socks5Server",
+        "MuxServer",
+        "SoftIpLimiter",
+        "UdpOverTcpServer",
+        "TrojanServer",
+        "Bridge",
+        "MuxClient",
+        "SpeedTestServer",
+        "EncryptionServer",
+        "ReverseServer",
+        "Router",
+        "SniffRouter",
+        "TlsClient",
+        "HeaderClient",
+        "ConnectionFisherServer",
+        "HalfDuplexServer",
+        "ObfuscatorServer",
+        "StreamToPackets",
+        "TcpUdpConnector",
+        "ObfuscatorClient"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TcpListener/instance/node.c"
+    },
+    {
+      "type": "TcpOverUdpClient",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "carries a TCP-like byte stream over a UDP path by running KCP internally. It accepts stream data from the previous node, feeds it into KCP, and sends the resulting packets through the next node.",
+      "descriptionFa": "نود TcpOverUdpClient در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "fec",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "fec"
+        },
+        {
+          "id": "fec-data-shards",
+          "type": "number",
+          "required": false,
+          "labelFa": "fec-data-shards"
+        },
+        {
+          "id": "fec-parity-shards",
+          "type": "number",
+          "required": false,
+          "labelFa": "fec-parity-shards"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TcpOverUdpClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpOverUdpServer",
+        "Disturber",
+        "UdpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TcpOverUdpClient/instance/node.c"
+    },
+    {
+      "type": "TcpOverUdpServer",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is the server-side peer of `TcpOverUdpClient`. It receives UDP-style packet traffic carrying KCP data, reconstructs the original byte stream, and forwards that stream to the next node.",
+      "descriptionFa": "نود TcpOverUdpServer در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "fec",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "fec"
+        },
+        {
+          "id": "fec-data-shards",
+          "type": "number",
+          "required": false,
+          "labelFa": "fec-data-shards"
+        },
+        {
+          "id": "fec-parity-shards",
+          "type": "number",
+          "required": false,
+          "labelFa": "fec-parity-shards"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TcpOverUdpServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer",
+        "SpeedTestServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TcpOverUdpServer/instance/node.c"
+    },
+    {
+      "type": "TcpUdpConnector",
+      "version": 1,
+      "category": "خروجی",
+      "description": "is a chain-end wrapper around `TcpConnector` and `UdpConnector`. It lets one chain end connect TCP",
+      "descriptionFa": "اتصال به مقصد TCP یا UDP",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [],
+      "settings": [
+        {
+          "id": "address",
+          "type": "string",
+          "required": true,
+          "labelFa": "آدرس مقصد"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "required": true,
+          "labelFa": "پورت مقصد"
+        },
+        {
+          "id": "nodelay",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "nodelay"
+        },
+        {
+          "id": "fastopen",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "fastopen"
+        },
+        {
+          "id": "balance-mode",
+          "type": "string",
+          "required": false,
+          "labelFa": "balance-mode"
+        },
+        {
+          "id": "addresses",
+          "type": "json",
+          "required": false,
+          "labelFa": "addresses"
+        },
+        {
+          "id": "domain-strategy",
+          "type": "string",
+          "required": false,
+          "labelFa": "domain-strategy"
+        },
+        {
+          "id": "interface",
+          "type": "string",
+          "required": false,
+          "labelFa": "interface"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TcpUdpConnector",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 1
+      },
+      "capabilities": {
+        "prev": true,
+        "next": false
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/TcpUdpConnector/instance/node.c"
+    },
+    {
+      "type": "TcpUdpListener",
+      "version": 1,
+      "category": "ورودی",
+      "description": "is a chain-head wrapper around `TcpListener` and `UdpListener`. It registers both child listeners with",
+      "descriptionFa": "دریافت همزمان ترافیک TCP و UDP در ورودی",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "address",
+          "type": "string",
+          "required": false,
+          "labelFa": "آدرس شنود"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "required": true,
+          "labelFa": "پورت شنود"
+        },
+        {
+          "id": "nodelay",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "nodelay"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TcpUdpListener",
+      "layerGroups": {
+        "own": 8,
+        "prev": 1,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": false,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "Socks5Server",
+        "UdpOverTcpClient",
+        "TcpUdpConnector",
+        "EncryptionServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TcpUdpListener/instance/node.c"
+    },
+    {
+      "type": "Template",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is the starter tunnel skeleton used for building new Waterwall tunnels.",
+      "descriptionFa": "نود Template در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/template/instance/node.c"
+    },
+    {
+      "type": "TesterClient",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is a synthetic chain-head test tunnel. It creates one test flow per worker, sends a deterministic",
+      "descriptionFa": "نود TesterClient در زنجیره WaterWall",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "allow-early-response",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "allow-early-response"
+        },
+        {
+          "id": "max-payload-size",
+          "type": "number",
+          "required": false,
+          "labelFa": "max-payload-size"
+        },
+        {
+          "id": "dest-context",
+          "type": "json",
+          "required": false,
+          "labelFa": "dest-context"
+        },
+        {
+          "id": "chunk-count",
+          "type": "number",
+          "required": false,
+          "labelFa": "chunk-count"
+        },
+        {
+          "id": "split-payload-burst",
+          "type": "number",
+          "required": false,
+          "labelFa": "split-payload-burst"
+        },
+        {
+          "id": "packet-mode",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "packet-mode"
+        },
+        {
+          "id": "packet-start-immediately",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "packet-start-immediately"
+        },
+        {
+          "id": "packet-ipv4",
+          "type": "json",
+          "required": false,
+          "labelFa": "packet-ipv4"
+        },
+        {
+          "id": "packet-stateless",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "packet-stateless"
+        },
+        {
+          "id": "packet-start-delay-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "packet-start-delay-ms"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": true
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TesterClient",
+      "layerGroups": {
+        "own": 12,
+        "prev": 1,
+        "next": 12
+      },
+      "capabilities": {
+        "prev": false,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "HttpClient",
+        "Socks5Client",
+        "TcpConnector",
+        "RealityClient",
+        "VlessClient",
+        "TrojanClient",
+        "UdpConnector",
+        "PacketsToStream",
+        "TcpOverUdpClient",
+        "ConnectionFisherClient",
+        "MuxClient",
+        "ObfuscatorClient",
+        "Bridge",
+        "TlsClient",
+        "WireGuardDevice",
+        "EncryptionClient",
+        "HalfDuplexClient",
+        "IpOverrider",
+        "IpManipulator",
+        "PingClient",
+        "Bgp4Client",
+        "Disturber",
+        "KeepAliveClient",
+        "PingServer",
+        "RealityServer",
+        "UdpOverTcpClient"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TesterClient/instance/node.c"
+    },
+    {
+      "type": "TesterServer",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is the synthetic chain-end peer for `TesterClient`. It verifies the deterministic request sequence that",
+      "descriptionFa": "نود TesterServer در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "streaming-response",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "streaming-response"
+        },
+        {
+          "id": "max-payload-size",
+          "type": "number",
+          "required": false,
+          "labelFa": "max-payload-size"
+        },
+        {
+          "id": "chunk-count",
+          "type": "number",
+          "required": false,
+          "labelFa": "chunk-count"
+        },
+        {
+          "id": "split-payload-burst",
+          "type": "number",
+          "required": false,
+          "labelFa": "split-payload-burst"
+        },
+        {
+          "id": "packet-mode",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "packet-mode"
+        },
+        {
+          "id": "packet-init-on-start",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "packet-init-on-start"
+        },
+        {
+          "id": "packet-ipv4",
+          "type": "json",
+          "required": false,
+          "labelFa": "packet-ipv4"
+        },
+        {
+          "id": "packet-stateless",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "packet-stateless"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TesterServer",
+      "layerGroups": {
+        "own": 12,
+        "prev": 12,
+        "next": 12
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "IpManipulator",
+        "ObfuscatorServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TesterServer/instance/node.c"
+    },
+    {
+      "type": "TlsClient",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is a client-side TLS wrapper built on the bundled BoringSSL code in this repository.",
+      "descriptionFa": "افزودن رمزنگاری و هدر TLS سمت کلاینت",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "sni",
+          "type": "string",
+          "required": false,
+          "labelFa": "دامنه SNI"
+        },
+        {
+          "id": "insecure-skip-verify",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "نادیده گرفتن گواهی ناپایدار"
+        },
+        {
+          "id": "verify",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "verify"
+        },
+        {
+          "id": "alpns",
+          "type": "json",
+          "required": false,
+          "labelFa": "alpns"
+        },
+        {
+          "id": "tls13-record-shaping",
+          "type": "json",
+          "required": false,
+          "labelFa": "tls13-record-shaping"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TlsClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector",
+        "TlsServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TlsClient/instance/node.c"
+    },
+    {
+      "type": "TlsServer",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is a server-side TLS wrapper built on OpenSSL.",
+      "descriptionFa": "پذیرش و رمزگشایی TLS سمت سرور با گواهی",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "cert-file",
+          "type": "string",
+          "required": true,
+          "labelFa": "مسیر فایل گواهی (cert)"
+        },
+        {
+          "id": "key-file",
+          "type": "string",
+          "required": true,
+          "labelFa": "مسیر فایل کلید (key)"
+        },
+        {
+          "id": "sni",
+          "type": "string",
+          "required": false,
+          "labelFa": "sni"
+        },
+        {
+          "id": "session-tickets",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "session-tickets"
+        },
+        {
+          "id": "min-version",
+          "type": "string",
+          "required": false,
+          "labelFa": "min-version"
+        },
+        {
+          "id": "max-version",
+          "type": "string",
+          "required": false,
+          "labelFa": "max-version"
+        },
+        {
+          "id": "ciphers",
+          "type": "string",
+          "required": false,
+          "labelFa": "ciphers"
+        },
+        {
+          "id": "tls13-record-shaping",
+          "type": "json",
+          "required": false,
+          "labelFa": "tls13-record-shaping"
+        },
+        {
+          "id": "fallback-node-name",
+          "type": "string",
+          "required": false,
+          "labelFa": "fallback-node-name"
+        },
+        {
+          "id": "handshake-timeout-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "handshake-timeout-ms"
+        },
+        {
+          "id": "fallback-intentional-delay-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "fallback-intentional-delay-ms"
+        },
+        {
+          "id": "session-cache",
+          "type": "string",
+          "required": false,
+          "labelFa": "session-cache"
+        },
+        {
+          "id": "fallback-intentional-delay-jitter-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "fallback-intentional-delay-jitter-ms"
+        },
+        {
+          "id": "verbose",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "verbose"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TlsServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "BlackHole",
+        "TcpConnector",
+        "TrojanServer",
+        "TesterServer",
+        "SpeedTestServer",
+        "SoftIpLimiter",
+        "VlessServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TlsServer/instance/node.c"
+    },
+    {
+      "type": "TrojanClient",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is a client-side Trojan protocol middle tunnel for Waterwall.",
+      "descriptionFa": "فریم‌بندی و احرازهویت Trojan سمت کلاینت",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "password",
+          "type": "string",
+          "required": true,
+          "labelFa": "رمز عبور Trojan"
+        },
+        {
+          "id": "address",
+          "type": "string",
+          "required": false,
+          "labelFa": "address"
+        },
+        {
+          "id": "port",
+          "type": "string",
+          "required": false,
+          "labelFa": "port"
+        },
+        {
+          "id": "protocol",
+          "type": "string",
+          "required": false,
+          "labelFa": "protocol"
+        },
+        {
+          "id": "domain-strategy",
+          "type": "string",
+          "required": false,
+          "labelFa": "domain-strategy"
+        },
+        {
+          "id": "sha224",
+          "type": "string",
+          "required": false,
+          "labelFa": "sha224"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TrojanClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TlsClient",
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TrojanClient/instance/node.c"
+    },
+    {
+      "type": "TrojanServer",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is a server-side Trojan protocol middle tunnel for Waterwall.",
+      "descriptionFa": "بررسی احرازهویت و رمزگشایی Trojan سمت سرور",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "password",
+          "type": "string",
+          "required": true,
+          "labelFa": "رمز عبور Trojan"
+        },
+        {
+          "id": "connect",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "connect"
+        },
+        {
+          "id": "udp",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "udp"
+        },
+        {
+          "id": "auth-client-node-name",
+          "type": "string",
+          "required": false,
+          "labelFa": "auth-client-node-name"
+        },
+        {
+          "id": "fallback-node-name",
+          "type": "string",
+          "required": false,
+          "labelFa": "fallback-node-name"
+        },
+        {
+          "id": "users",
+          "type": "json",
+          "required": false,
+          "labelFa": "users"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TrojanServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector",
+        "Router",
+        "UdpConnector",
+        "TcpUdpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TrojanServer/instance/node.c"
+    },
+    {
+      "type": "TunDevice",
+      "version": 3,
+      "category": "ورودی",
+      "description": "attaches WaterWall to a TUN interface. It reads IP packets from the virtual network device and forwards them into the chain, and it can also write IP packets from the chain back into the TUN device.",
+      "descriptionFa": "ورودی و خروجی بسته‌های IP لایه ۳ از رابط TUN سیستم‌عامل",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "packet",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "device-name",
+          "type": "string",
+          "required": false,
+          "labelFa": "نام کارت شبکه مجازی (مانند tun0)"
+        },
+        {
+          "id": "device-ip",
+          "type": "string",
+          "required": false,
+          "labelFa": "آدرس IP کارت شبکه"
+        },
+        {
+          "id": "mtu",
+          "type": "number",
+          "required": false,
+          "labelFa": "سایز MTU (پیش‌فرض ۱۵۰۰)"
+        },
+        {
+          "id": "device-mtu",
+          "type": "number",
+          "required": false,
+          "labelFa": "device-mtu"
+        },
+        {
+          "id": "route-table",
+          "type": "string",
+          "required": false,
+          "labelFa": "route-table"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/TunDevice",
+      "layerGroups": {
+        "own": 4,
+        "prev": 4,
+        "next": 4
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "IpOverrider",
+        "BlackHole",
+        "Bridge",
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/TunDevice/instance/node.c"
+    },
+    {
+      "type": "UdpConnector",
+      "version": 1,
+      "category": "خروجی",
+      "description": "is an outbound UDP client node. It creates a local UDP socket, chooses a destination address and port, and forwards datagrams between the previous node and the selected remote peer.",
+      "descriptionFa": "ارسال ترافیک UDP خروجی به آدرس مقصد",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [],
+      "settings": [
+        {
+          "id": "address",
+          "type": "string",
+          "required": true,
+          "labelFa": "آدرس مقصد"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "required": true,
+          "labelFa": "پورت مقصد"
+        },
+        {
+          "id": "balance-mode",
+          "type": "string",
+          "required": false,
+          "labelFa": "balance-mode"
+        },
+        {
+          "id": "domain-strategy",
+          "type": "number",
+          "required": false,
+          "labelFa": "domain-strategy"
+        },
+        {
+          "id": "addresses",
+          "type": "json",
+          "required": false,
+          "labelFa": "addresses"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/UdpConnector",
+      "layerGroups": {
+        "own": 12,
+        "prev": 12,
+        "next": 1
+      },
+      "capabilities": {
+        "prev": true,
+        "next": false
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/UdpConnector/instance/node.c"
+    },
+    {
+      "type": "UdpListener",
+      "version": 1,
+      "category": "ورودی",
+      "description": "is a UDP server node. It listens for inbound UDP traffic, groups packets by remote peer, creates a line for each peer, and passes packets upstream to the next node in the chain.",
+      "descriptionFa": "شنود ترافیک UDP ورودی و ایجاد خط حالت‌دار per-peer",
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "address",
+          "type": "string",
+          "required": false,
+          "labelFa": "آدرس شنود"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "required": true,
+          "labelFa": "پورت شنود"
+        },
+        {
+          "id": "port-range",
+          "type": "json",
+          "required": false,
+          "labelFa": "port-range"
+        },
+        {
+          "id": "multiport-backend",
+          "type": "string",
+          "required": false,
+          "labelFa": "multiport-backend"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/UdpListener",
+      "layerGroups": {
+        "own": 12,
+        "prev": 1,
+        "next": 12
+      },
+      "capabilities": {
+        "prev": false,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TesterServer",
+        "UdpConnector",
+        "StreamToPackets",
+        "PacketReceiver",
+        "UdpOverTcpServer",
+        "MuxClient",
+        "TcpOverUdpServer",
+        "UdpOverTcpClient",
+        "SpeedTestServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/UdpListener/instance/node.c"
+    },
+    {
+      "type": "UdpOverTcpClient",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "carries discrete UDP-style packets over a TCP-style byte stream. It adds a 2-byte length prefix to each outbound packet and reconstructs packet boundaries again when data comes back from the stream side.",
+      "descriptionFa": "نود UdpOverTcpClient در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/UdpOverTcpClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector",
+        "UdpOverTcpServer",
+        "UdpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/UdpOverTcpClient/instance/node.c"
+    },
+    {
+      "type": "UdpOverTcpServer",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is the server-side peer of `UdpOverTcpClient`. It accepts a framed byte stream from the previous node, reconstructs discrete packets, and forwards those packets to the next node.",
+      "descriptionFa": "نود UdpOverTcpServer در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/UdpOverTcpServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpUdpConnector",
+        "Bridge",
+        "TesterServer",
+        "SpeedTestServer",
+        "UdpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/UdpOverTcpServer/instance/node.c"
+    },
+    {
+      "type": "UdpStatelessSocket",
+      "version": 1,
+      "category": "ورودی",
+      "description": "is a UDP endpoint adapter. It binds one UDP socket, receives datagrams from any peer, and creates normal WaterWall lines for inbound peer flows.",
+      "descriptionFa": "نود UdpStatelessSocket در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "listen-address",
+          "type": "string",
+          "required": false,
+          "labelFa": "listen-address"
+        },
+        {
+          "id": "listen-port",
+          "type": "number",
+          "required": false,
+          "labelFa": "listen-port"
+        }
+      ],
+      "flags": {
+        "chainHead": true,
+        "chainEnd": true,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/UdpStatelessSocket",
+      "layerGroups": {
+        "own": 12,
+        "prev": 12,
+        "next": 12
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "WireGuardDevice"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/UdpStatelessSocket/instance/node.c"
+    },
+    {
+      "type": "UserController",
+      "version": 1,
+      "category": "پیشرفته",
+      "description": "is a middle (stream) node that enforces per-user limits for traffic-serving chains.",
+      "descriptionFa": "نود UserController در زنجیره WaterWall",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/UserController",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [],
+      "sourcePath": "WaterWall-main/tunnels/Internals/UserController/instance/node.c"
+    },
+    {
+      "type": "VlessClient",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is a client-side plain VLESS v0 middle tunnel for Waterwall.",
+      "descriptionFa": "افزودن هدر فریم‌بندی VLESS سمت کلاینت",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "uuid",
+          "type": "string",
+          "required": true,
+          "labelFa": "شناسه UUID کاربر"
+        },
+        {
+          "id": "address",
+          "type": "string",
+          "required": false,
+          "labelFa": "آدرس سرور VLESS"
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "required": false,
+          "labelFa": "پورت VLESS"
+        },
+        {
+          "id": "protocol",
+          "type": "string",
+          "required": false,
+          "labelFa": "protocol"
+        },
+        {
+          "id": "domain-strategy",
+          "type": "string",
+          "required": false,
+          "labelFa": "domain-strategy"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/VlessClient",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/VlessClient/instance/node.c"
+    },
+    {
+      "type": "VlessServer",
+      "version": 1,
+      "category": "امنیت",
+      "description": "is a server-side VLESS v0 protocol middle tunnel for Waterwall.",
+      "descriptionFa": "احرازهویت و پردازش فریم‌های VLESS سمت سرور",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "stream",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "uuid",
+          "type": "string",
+          "required": true,
+          "labelFa": "شناسه UUID کاربر"
+        },
+        {
+          "id": "connect",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "connect"
+        },
+        {
+          "id": "udp",
+          "type": "boolean",
+          "required": false,
+          "labelFa": "udp"
+        },
+        {
+          "id": "auth-client-node-name",
+          "type": "string",
+          "required": false,
+          "labelFa": "auth-client-node-name"
+        },
+        {
+          "id": "fallback-node-name",
+          "type": "string",
+          "required": false,
+          "labelFa": "fallback-node-name"
+        },
+        {
+          "id": "users",
+          "type": "json",
+          "required": false,
+          "labelFa": "users"
+        },
+        {
+          "id": "fallback-intentional-delay-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "fallback-intentional-delay-ms"
+        },
+        {
+          "id": "fallback-intentional-delay-jitter-ms",
+          "type": "number",
+          "required": false,
+          "labelFa": "fallback-intentional-delay-jitter-ms"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/VlessServer",
+      "layerGroups": {
+        "own": 8,
+        "prev": 8,
+        "next": 8
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "TcpConnector",
+        "Router",
+        "TcpUdpConnector",
+        "UdpConnector",
+        "BlackHole"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/VlessServer/instance/node.c"
+    },
+    {
+      "type": "WireGuardDevice",
+      "version": 2,
+      "category": "ورودی",
+      "description": "is Waterwall's in-chain WireGuard implementation.",
+      "descriptionFa": "رمزنگاری و روتینگ مستقل بسته‌ها با پروتکل WireGuard",
+      "inputs": [
+        {
+          "id": "previous",
+          "direction": "input",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "previous",
+          "labelFa": "ورودی"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "next",
+          "direction": "output",
+          "layer": "any",
+          "minConnections": 1,
+          "maxConnections": 1,
+          "required": true,
+          "semantic": "next",
+          "labelFa": "بعدی"
+        }
+      ],
+      "settings": [
+        {
+          "id": "private-key",
+          "type": "string",
+          "required": true,
+          "labelFa": "کلید خصوصی WireGuard"
+        },
+        {
+          "id": "peer-endpoint",
+          "type": "string",
+          "required": false,
+          "labelFa": "آدرس و پورت peer مقابل"
+        },
+        {
+          "id": "allowed-ips",
+          "type": "string",
+          "required": false,
+          "labelFa": "آی‌پی‌های مجاز ( AllowedIPs )"
+        },
+        {
+          "id": "privatekey",
+          "type": "string",
+          "required": false,
+          "labelFa": "privatekey"
+        },
+        {
+          "id": "peers",
+          "type": "json",
+          "required": false,
+          "labelFa": "peers"
+        },
+        {
+          "id": "transport-direction",
+          "type": "string",
+          "required": false,
+          "labelFa": "transport-direction"
+        }
+      ],
+      "flags": {
+        "chainHead": false,
+        "chainEnd": false,
+        "noChain": false,
+        "singleton": false
+      },
+      "docsUrl": "https://radkesvat.github.io/WaterWall-Docs/docs/noderefs/WireGuardDevice",
+      "layerGroups": {
+        "own": 12,
+        "prev": 76,
+        "next": 140
+      },
+      "capabilities": {
+        "prev": true,
+        "next": true
+      },
+      "lifecycle": [
+        "Init",
+        "Est",
+        "Payload",
+        "Pause",
+        "Resume",
+        "Finish"
+      ],
+      "recommendations": [
+        "UdpStatelessSocket",
+        "TesterServer"
+      ],
+      "sourcePath": "WaterWall-main/tunnels/WireGuardDevice/instance/node.c"
+    }
+  ],
+  "adjacency": {
+    "TesterClient": {
+      "Bgp4Client": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 13,
+        "field": 0
+      },
+      "ConnectionFisherClient": {
+        "repo": 3,
+        "field": 0
+      },
+      "Socks5Client": {
+        "repo": 14,
+        "field": 0
+      },
+      "Disturber": {
+        "repo": 1,
+        "field": 0
+      },
+      "EncryptionClient": {
+        "repo": 2,
+        "field": 0
+      },
+      "HalfDuplexClient": {
+        "repo": 2,
+        "field": 0
+      },
+      "HttpClient": {
+        "repo": 15,
+        "field": 0
+      },
+      "IpOverrider": {
+        "repo": 2,
+        "field": 0
+      },
+      "IpManipulator": {
+        "repo": 2,
+        "field": 0
+      },
+      "KeepAliveClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "MuxClient": {
+        "repo": 3,
+        "field": 0
+      },
+      "ObfuscatorClient": {
+        "repo": 3,
+        "field": 0
+      },
+      "Bridge": {
+        "repo": 3,
+        "field": 0
+      },
+      "PacketsToStream": {
+        "repo": 6,
+        "field": 0
+      },
+      "PingClient": {
+        "repo": 2,
+        "field": 0
+      },
+      "PingServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "RealityClient": {
+        "repo": 11,
+        "field": 0
+      },
+      "RealityServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 7,
+        "field": 0
+      },
+      "TrojanClient": {
+        "repo": 8,
+        "field": 0
+      },
+      "VlessClient": {
+        "repo": 9,
+        "field": 0
+      },
+      "TcpOverUdpClient": {
+        "repo": 4,
+        "field": 0
+      },
+      "TlsClient": {
+        "repo": 3,
+        "field": 0
+      },
+      "UdpOverTcpClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "WireGuardDevice": {
+        "repo": 3,
+        "field": 0
+      }
+    },
+    "Bgp4Client": {
+      "Bgp4Server": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "Bgp4Server": {
+      "TesterServer": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "TcpListener": {
+      "TesterServer": {
+        "repo": 26,
+        "field": 0
+      },
+      "EncryptionServer": {
+        "repo": 2,
+        "field": 0
+      },
+      "ConnectionFisherServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "Socks5Server": {
+        "repo": 5,
+        "field": 0
+      },
+      "HalfDuplexServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "HttpServer": {
+        "repo": 6,
+        "field": 0
+      },
+      "MuxServer": {
+        "repo": 2,
+        "field": 1
+      },
+      "Bridge": {
+        "repo": 1,
+        "field": 1
+      },
+      "ObfuscatorServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "StreamToPackets": {
+        "repo": 1,
+        "field": 0
+      },
+      "RealityServer": {
+        "repo": 21,
+        "field": 3
+      },
+      "TlsServer": {
+        "repo": 27,
+        "field": 0
+      },
+      "RealityClient": {
+        "repo": 8,
+        "field": 0
+      },
+      "ReverseServer": {
+        "repo": 2,
+        "field": 0
+      },
+      "Router": {
+        "repo": 2,
+        "field": 0
+      },
+      "SniffRouter": {
+        "repo": 2,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 4,
+        "field": 2
+      },
+      "SoftIpLimiter": {
+        "repo": 4,
+        "field": 0
+      },
+      "UdpOverTcpServer": {
+        "repo": 4,
+        "field": 0
+      },
+      "TlsClient": {
+        "repo": 2,
+        "field": 0
+      },
+      "TrojanServer": {
+        "repo": 4,
+        "field": 0
+      },
+      "VlessServer": {
+        "repo": 9,
+        "field": 0
+      },
+      "TcpUdpConnector": {
+        "repo": 1,
+        "field": 0
+      },
+      "MuxClient": {
+        "repo": 1,
+        "field": 1
+      },
+      "SpeedTestServer": {
+        "repo": 3,
+        "field": 0
+      },
+      "ObfuscatorClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "HeaderClient": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "ConnectionFisherClient": {
+      "EncryptionClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 1,
+        "field": 0
+      },
+      "MuxClient": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "EncryptionClient": {
+      "TcpConnector": {
+        "repo": 2,
+        "field": 0
+      },
+      "EncryptionServer": {
+        "repo": 3,
+        "field": 0
+      },
+      "TcpUdpConnector": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "EncryptionServer": {
+      "ConnectionFisherServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "TesterServer": {
+        "repo": 2,
+        "field": 0
+      },
+      "Socks5Server": {
+        "repo": 1,
+        "field": 0
+      },
+      "SpeedTestServer": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "ConnectionFisherServer": {
+      "TesterServer": {
+        "repo": 3,
+        "field": 0
+      }
+    },
+    "Socks5Client": {
+      "TcpConnector": {
+        "repo": 4,
+        "field": 0
+      },
+      "TcpUdpConnector": {
+        "repo": 8,
+        "field": 0
+      },
+      "EncryptionClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "Router": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "Socks5Server": {
+      "ConnectionToPackets": {
+        "repo": 5,
+        "field": 0
+      },
+      "Router": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpUdpConnector": {
+        "repo": 2,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 7,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "ConnectionToPackets": {
+      "PacketsToConnection": {
+        "repo": 4,
+        "field": 0
+      },
+      "PingClient": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "PacketsToConnection": {
+      "TcpConnector": {
+        "repo": 3,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "TcpUdpListener": {
+      "Socks5Server": {
+        "repo": 10,
+        "field": 0
+      },
+      "EncryptionServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpUdpConnector": {
+        "repo": 2,
+        "field": 0
+      },
+      "UdpOverTcpClient": {
+        "repo": 3,
+        "field": 0
+      }
+    },
+    "UdpListener": {
+      "TesterServer": {
+        "repo": 18,
+        "field": 0
+      },
+      "MuxClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 6,
+        "field": 1
+      },
+      "PacketReceiver": {
+        "repo": 3,
+        "field": 0
+      },
+      "StreamToPackets": {
+        "repo": 5,
+        "field": 0
+      },
+      "TcpOverUdpServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "UdpOverTcpClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "SpeedTestServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "UdpOverTcpServer": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "Disturber": {
+      "TesterServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "PacketReceiver": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpOverUdpServer": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "HalfDuplexClient": {
+      "HalfDuplexServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "HalfDuplexServer": {
+      "TesterServer": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "HttpClient": {
+      "HttpServer": {
+        "repo": 8,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 7,
+        "field": 0
+      }
+    },
+    "HttpServer": {
+      "TesterServer": {
+        "repo": 15,
+        "field": 0
+      }
+    },
+    "IpOverrider": {
+      "IpManipulator": {
+        "repo": 2,
+        "field": 9
+      },
+      "PacketSplitStream": {
+        "repo": 0,
+        "field": 1
+      },
+      "ObfuscatorServer": {
+        "repo": 0,
+        "field": 1
+      },
+      "ObfuscatorClient": {
+        "repo": 0,
+        "field": 1
+      },
+      "IpOverrider": {
+        "repo": 0,
+        "field": 10
+      },
+      "RawSocket": {
+        "repo": 0,
+        "field": 5
+      }
+    },
+    "IpManipulator": {
+      "TesterServer": {
+        "repo": 3,
+        "field": 0
+      },
+      "Bridge": {
+        "repo": 2,
+        "field": 0
+      },
+      "IpManipulator": {
+        "repo": 1,
+        "field": 0
+      },
+      "RawSocket": {
+        "repo": 0,
+        "field": 4
+      },
+      "ObfuscatorClient": {
+        "repo": 0,
+        "field": 2
+      },
+      "ObfuscatorServer": {
+        "repo": 0,
+        "field": 2
+      },
+      "IpOverrider": {
+        "repo": 0,
+        "field": 5
+      }
+    },
+    "TesterServer": {
+      "IpManipulator": {
+        "repo": 1,
+        "field": 0
+      },
+      "ObfuscatorServer": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "KeepAliveClient": {
+      "KeepAliveServer": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "KeepAliveServer": {
+      "TesterServer": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "MuxClient": {
+      "MuxServer": {
+        "repo": 6,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 1,
+        "field": 1
+      }
+    },
+    "MuxServer": {
+      "TesterServer": {
+        "repo": 4,
+        "field": 0
+      },
+      "ConnectionFisherServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "Router": {
+        "repo": 1,
+        "field": 0
+      },
+      "SpeedTestServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 1,
+        "field": 1
+      }
+    },
+    "Router": {
+      "TcpConnector": {
+        "repo": 9,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpUdpConnector": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "TunDevice": {
+      "Bridge": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 1,
+        "field": 0
+      },
+      "BlackHole": {
+        "repo": 4,
+        "field": 0
+      },
+      "IpOverrider": {
+        "repo": 0,
+        "field": 12
+      }
+    },
+    "ObfuscatorClient": {
+      "ObfuscatorServer": {
+        "repo": 3,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 1,
+        "field": 0
+      },
+      "Bridge": {
+        "repo": 1,
+        "field": 0
+      },
+      "IpManipulator": {
+        "repo": 0,
+        "field": 2
+      },
+      "RawSocket": {
+        "repo": 0,
+        "field": 2
+      }
+    },
+    "ObfuscatorServer": {
+      "TesterServer": {
+        "repo": 2,
+        "field": 0
+      },
+      "Bridge": {
+        "repo": 1,
+        "field": 0
+      },
+      "SpeedTestServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 1,
+        "field": 0
+      },
+      "IpManipulator": {
+        "repo": 0,
+        "field": 2
+      },
+      "RawSocket": {
+        "repo": 0,
+        "field": 2
+      }
+    },
+    "PacketSender": {
+      "Disturber": {
+        "repo": 1,
+        "field": 0
+      },
+      "PingClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 3,
+        "field": 0
+      }
+    },
+    "PingClient": {
+      "PacketReceiver": {
+        "repo": 1,
+        "field": 0
+      },
+      "PingServer": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "PacketReceiver": {
+      "Bridge": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "PacketsToStream": {
+      "StreamToPackets": {
+        "repo": 3,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 1,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "StreamToPackets": {
+      "TesterServer": {
+        "repo": 9,
+        "field": 0
+      }
+    },
+    "RawSocket": {
+      "PingServer": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "PingServer": {
+      "TunDevice": {
+        "repo": 1,
+        "field": 0
+      },
+      "TesterServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "PacketsToConnection": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "RealityClient": {
+      "BlackHole": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 19,
+        "field": 3
+      },
+      "RealityServer": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "RealityServer": {
+      "TesterServer": {
+        "repo": 10,
+        "field": 0
+      },
+      "BlackHole": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 10,
+        "field": 0
+      },
+      "SpeedTestServer": {
+        "repo": 2,
+        "field": 0
+      },
+      "ReverseServer": {
+        "repo": 0,
+        "field": 2
+      },
+      "Http2Server": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "TlsServer": {
+      "BlackHole": {
+        "repo": 15,
+        "field": 0
+      },
+      "SoftIpLimiter": {
+        "repo": 1,
+        "field": 0
+      },
+      "TesterServer": {
+        "repo": 3,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 5,
+        "field": 0
+      },
+      "TrojanServer": {
+        "repo": 4,
+        "field": 0
+      },
+      "VlessServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "SpeedTestServer": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "Bridge": {
+      "ReverseClient": {
+        "repo": 2,
+        "field": 3
+      },
+      "TesterServer": {
+        "repo": 2,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 0,
+        "field": 1
+      },
+      "UdpOverTcpClient": {
+        "repo": 0,
+        "field": 1
+      },
+      "HeaderServer": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "ReverseClient": {
+      "TcpConnector": {
+        "repo": 2,
+        "field": 0
+      },
+      "RealityClient": {
+        "repo": 0,
+        "field": 2
+      },
+      "ProtoBufClient": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "ReverseServer": {
+      "Bridge": {
+        "repo": 2,
+        "field": 3
+      }
+    },
+    "SniffRouter": {
+      "TcpConnector": {
+        "repo": 1,
+        "field": 0
+      },
+      "TesterServer": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "SoftIpLimiter": {
+      "BlackHole": {
+        "repo": 1,
+        "field": 0
+      },
+      "TesterServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "TrojanServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "VlessServer": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "TrojanClient": {
+      "TlsClient": {
+        "repo": 5,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 3,
+        "field": 0
+      }
+    },
+    "TlsClient": {
+      "TcpConnector": {
+        "repo": 8,
+        "field": 0
+      },
+      "TlsServer": {
+        "repo": 4,
+        "field": 0
+      }
+    },
+    "TrojanServer": {
+      "TcpConnector": {
+        "repo": 3,
+        "field": 0
+      },
+      "Router": {
+        "repo": 3,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 2,
+        "field": 0
+      },
+      "TcpUdpConnector": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "VlessServer": {
+      "BlackHole": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 3,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 2,
+        "field": 0
+      },
+      "Router": {
+        "repo": 3,
+        "field": 0
+      },
+      "TcpUdpConnector": {
+        "repo": 3,
+        "field": 0
+      }
+    },
+    "VlessClient": {
+      "TcpConnector": {
+        "repo": 9,
+        "field": 0
+      }
+    },
+    "TcpOverUdpClient": {
+      "Disturber": {
+        "repo": 2,
+        "field": 0
+      },
+      "TcpOverUdpServer": {
+        "repo": 3,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "TcpOverUdpServer": {
+      "TesterServer": {
+        "repo": 4,
+        "field": 0
+      },
+      "SpeedTestServer": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "UdpOverTcpClient": {
+      "TcpConnector": {
+        "repo": 4,
+        "field": 0
+      },
+      "UdpOverTcpServer": {
+        "repo": 2,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "UdpOverTcpServer": {
+      "TcpUdpConnector": {
+        "repo": 3,
+        "field": 0
+      },
+      "TesterServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "SpeedTestServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 1,
+        "field": 0
+      },
+      "Bridge": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "AuthenticationClient": {
+      "AuthenticationServer": {
+        "repo": 6,
+        "field": 0
+      }
+    },
+    "UdpStatelessSocket": {
+      "WireGuardDevice": {
+        "repo": 3,
+        "field": 0
+      }
+    },
+    "WireGuardDevice": {
+      "UdpStatelessSocket": {
+        "repo": 4,
+        "field": 0
+      },
+      "TesterServer": {
+        "repo": 2,
+        "field": 0
+      }
+    },
+    "SpeedTestClient": {
+      "SpeedTestServer": {
+        "repo": 1,
+        "field": 0
+      },
+      "EncryptionClient": {
+        "repo": 2,
+        "field": 0
+      },
+      "MuxClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "TcpConnector": {
+        "repo": 3,
+        "field": 0
+      },
+      "ObfuscatorClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "RealityClient": {
+        "repo": 2,
+        "field": 0
+      },
+      "TcpOverUdpClient": {
+        "repo": 2,
+        "field": 0
+      },
+      "TlsClient": {
+        "repo": 2,
+        "field": 0
+      },
+      "UdpOverTcpClient": {
+        "repo": 1,
+        "field": 0
+      },
+      "UdpConnector": {
+        "repo": 1,
+        "field": 0
+      }
+    },
+    "HeaderClient": {
+      "Bridge": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "ProtoBufServer": {
+      "ReverseServer": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "Http2Server": {
+      "ProtoBufServer": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "HeaderServer": {
+      "TcpConnector": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "ProtoBufClient": {
+      "Http2Client": {
+        "repo": 0,
+        "field": 1
+      }
+    },
+    "Http2Client": {
+      "RealityClient": {
+        "repo": 0,
+        "field": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "name": "germany-reverse-reality-client",
+  "variables": {
+    "ip_server_iran": "1.2.3.4",
+    "connect_to_iran_port": 443, // same as 'user_and_server_kharej_port' in iran json
+    "domain_to_handshake_reality": "snapp.ir", // same as 'domain_white' in iran json
+    "password": "123654", // must be same with iran
+    "final_port": 80, // port listen inbound haste xray
+    "min_held_connections": 8 // 8 is good, tune with your needs
+  },
+  "nodes": [
+    {
+      "name": "outbound_to_local_service",
+      "type": "TcpConnector",
+      "settings": {
+        "address": "127.0.0.1",
+        "port": $final_port$,
+        "nodelay": true
+      }
+    },
+    {
+      "name": "bridge_local_side",
+      "type": "Bridge",
+      "settings": {
+        "pair": "bridge_reverse_client_side"
+      },
+      "next": "outbound_to_local_service"
+    },
+    {
+      "name": "bridge_reverse_client_side",
+      "type": "Bridge",
+      "settings": {
+        "pair": "bridge_local_side"
+      },
+      "next": "reverse_client"
+    },
+    {
+      "name": "reverse_client",
+      "type": "ReverseClient",
+      "settings": {
+        "minimum-unused": $min_held_connections$
+      },
+      "next": "reality-client"
+    },
+    {
+      "name": "reality-client",
+      "type": "RealityClient",
+      "settings": {
+        "sni": $domain_to_handshake_reality$,
+        "verify": true,
+        "password": $password$,
+        "algorithm": "chacha20-poly1305",
+        "kdf-iterations": 12000
+      },
+      "next": "tcp_to_iran"
+    },
+    {
+      "name": "tcp_to_iran",
+      "type": "TcpConnector",
+      "settings": {
+        "address": $ip_server_iran$,
+        "port": $connect_to_iran_port$,
+        "nodelay": true
+      }
+    }
+  ]
+}

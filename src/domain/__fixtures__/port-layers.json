@@ -1,0 +1,770 @@
+{
+  "AuthenticationClient": {
+    "inputs": [],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "AuthenticationServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": []
+  },
+  "Bgp4Client": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "Bgp4Server": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "BlackHole": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": []
+  },
+  "Bridge": {
+    "inputs": [
+      "any",
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ],
+      [
+        "pair",
+        "any"
+      ]
+    ]
+  },
+  "ConnectionFisherClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "ConnectionFisherServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "ConnectionToPackets": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "packet"
+      ]
+    ]
+  },
+  "Disturber": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "DomainResolver": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "EncryptionClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "EncryptionServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "HalfDuplexClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "HalfDuplexServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "HeaderClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "HeaderServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "HttpClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "HttpServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "IpManipulator": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "IpOverrider": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "JunkDatagramSender": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "KeepAliveClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "KeepAliveServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "LoggerTunnel": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "MuxClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "MuxServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "ObfuscatorClient": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "ObfuscatorServer": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "PacketReceiver": {
+    "inputs": [
+      "packet"
+    ],
+    "outputs": [
+      [
+        "next",
+        "packet"
+      ]
+    ]
+  },
+  "PacketSender": {
+    "inputs": [],
+    "outputs": [
+      [
+        "next",
+        "packet"
+      ]
+    ]
+  },
+  "PacketSplitStream": {
+    "inputs": [
+      "packet"
+    ],
+    "outputs": [
+      [
+        "up",
+        "packet"
+      ],
+      [
+        "down",
+        "packet"
+      ]
+    ]
+  },
+  "PacketsToConnection": {
+    "inputs": [
+      "packet"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "PacketsToStream": {
+    "inputs": [
+      "packet"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "PingClient": {
+    "inputs": [
+      "packet"
+    ],
+    "outputs": [
+      [
+        "next",
+        "packet"
+      ]
+    ]
+  },
+  "PingServer": {
+    "inputs": [
+      "packet"
+    ],
+    "outputs": [
+      [
+        "next",
+        "packet"
+      ]
+    ]
+  },
+  "RawSocket": {
+    "inputs": [
+      "packet"
+    ],
+    "outputs": [
+      [
+        "next",
+        "packet"
+      ]
+    ]
+  },
+  "RealityClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "RealityServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "ReverseClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "ReverseServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "Router": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "SniffRouter": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "Socks5Client": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "Socks5Server": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "SoftIpLimiter": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "SpeedLimit": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "SpeedTestClient": {
+    "inputs": [],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "SpeedTestServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": []
+  },
+  "StreamToPackets": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "packet"
+      ]
+    ]
+  },
+  "TcpConnector": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": []
+  },
+  "TcpListener": {
+    "inputs": [],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "TcpOverUdpClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "TcpOverUdpServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "TcpUdpConnector": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": []
+  },
+  "TcpUdpListener": {
+    "inputs": [],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "Template": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "TesterClient": {
+    "inputs": [],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "TesterServer": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "TlsClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "TlsServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "TrojanClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "TrojanServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "TunDevice": {
+    "inputs": [
+      "packet"
+    ],
+    "outputs": [
+      [
+        "next",
+        "packet"
+      ]
+    ]
+  },
+  "UdpConnector": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": []
+  },
+  "UdpListener": {
+    "inputs": [],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "UdpOverTcpClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "UdpOverTcpServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "UdpStatelessSocket": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  },
+  "UserController": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "VlessClient": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "VlessServer": {
+    "inputs": [
+      "stream"
+    ],
+    "outputs": [
+      [
+        "next",
+        "stream"
+      ]
+    ]
+  },
+  "WireGuardDevice": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      [
+        "next",
+        "any"
+      ]
+    ]
+  }
+}

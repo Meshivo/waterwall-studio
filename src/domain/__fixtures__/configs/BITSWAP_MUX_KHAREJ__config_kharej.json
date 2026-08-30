@@ -1,0 +1,161 @@
+{
+  "name": "germany-tcp-bitswap-mux",
+  "variables": {
+
+    "ip_server_iran": "1.1.1.1",
+    
+    "ip_server_kharej": "2.2.2.2",
+
+    "port_to_listen": 443,   // same as port_to_connect_to_waterwall_kharej in iran json
+
+    "final_ip": "127.0.0.1", // to forward to another server kharej you can specify its ip here instead
+
+    "final_port": 2083       // port of xray listen inbound
+  
+  },
+  "nodes": [
+    {
+      "name": "users_inbound",
+      "type": "TcpListener",
+      "settings": {
+        "address": "0.0.0.0",
+        "port": $port_to_listen$,
+        "nodelay": true
+      },
+      "next": "mux-s"
+    },
+    {
+      "name": "mux-s",
+      "type": "MuxServer",
+      "settings": {},
+      "next": "tcp-out"
+    },
+    {
+      "name": "tcp-out",
+      "type": "TcpConnector",
+      "settings": {
+        "address": $final_ip$,
+        "port": $final_port$,
+        "nodelay": true
+      }
+    },
+    {
+      "name": "my tun2",
+      "type": "TunDevice",
+      "settings": {
+        "device-name": "wtun2",
+        "device-ip": "10.20.0.1/24"
+      },
+      "next": "ipcorrect"
+    },
+    {
+      "name": "ipcorrect",
+      "type": "IpOverrider",
+      "settings": {
+        "up": {
+          "source-ip": {
+            "ipv4": "10.10.0.2"
+          },
+          "dest-ip": {
+            "ipv4": "10.10.0.1"
+          }
+        },
+        "down": {
+          "source-ip": {
+            "ipv4": "10.10.0.2"
+          },
+          "dest-ip": {
+            "ipv4": "10.10.0.1"
+          }
+        }
+      },
+      "next": "obfuscator-s"
+    },
+    {
+      "name": "obfuscator-s",
+      "type": "ObfuscatorServer",
+      "settings": {
+        "method": "xor",
+        "xor_key": 90,
+        "skip": "transport"
+      },
+      "next": "ip-manipulator-in"
+    },
+    {
+      "name": "ip-manipulator-in",
+      "type": "IpManipulator",
+      "settings": {
+        "dw-tcp-bit-psh": "packet->cwr",
+        "dw-tcp-bit-cwr": "packet->psh"
+      },
+      "next": "rdin"
+    },
+    {
+      "name": "rdin",
+      "type": "RawSocket",
+      "settings": {
+        "capture-filter-mode": "source-ip",
+        "capture-ip": $ip_server_iran$
+      }
+    },
+    {
+      "name": "my tun",
+      "type": "TunDevice",
+      "settings": {
+        "device-name": "wtun1",
+        "device-ip": "10.10.0.1/24"
+      },
+      "next": "ipovsrc"
+    },
+    {
+      "name": "ipovsrc",
+      "type": "IpOverrider",
+      "settings": {
+        "up": {
+          "source-ip": {
+            "ipv4": $ip_server_kharej$
+          },
+          "dest-ip": {
+            "ipv4": $ip_server_iran$
+          }
+        },
+        "down": {
+          "source-ip": {
+            "ipv4": "10.10.0.2"
+          },
+          "dest-ip": {
+            "ipv4": "10.10.0.1"
+          }
+        }
+      },
+      "next": "obfuscator-c"
+    },
+    {
+      "name": "obfuscator-c",
+      "type": "ObfuscatorClient",
+      "settings": {
+        "method": "xor",
+        "xor_key": 90,
+        "skip": "transport"
+      },
+      "next": "ip-manipulator"
+    },
+    {
+      "name": "ip-manipulator",
+      "type": "IpManipulator",
+      "settings": {
+        "up-tcp-bit-psh": "packet->rst",
+        "up-tcp-bit-rst": "packet->psh"
+      },
+      "next": "rd"
+    },
+    {
+      "name": "rd",
+      "type": "RawSocket",
+      "settings": {
+        "capture-filter-mode": "source-ip",
+        "capture-ip": "12.13.12.13" // trash ip
+      }
+    }
+  ]
+}

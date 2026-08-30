@@ -1,0 +1,160 @@
+{
+    "name": "iran-tcp-bitswap-mux",
+    "variables": {
+        "ip_server_iran": "1.1.1.1",
+
+        "ip_server_kharej": "2.2.2.2",
+
+        "port_to_listen": 443,
+        
+        "port_to_connect_to_kharej": 443, // this is not final xray inbound port in kharej, this is watertwall in kharej
+
+        "each_worker_mux_connections_count" : 8  // final count is this times workers count
+
+        // if you use Tls Termination, uncomment and set these...
+        // "certificate_path": "/root/fullchain.pem",
+        // "key_path": "/root/privkey.pem"
+    },
+    "nodes": [
+        {
+            "name": "users_inbound",
+            "type": "TcpListener",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": $port_to_listen$,
+                "nodelay": true
+            },
+            "next": "mux-client"
+        },
+        // Tls Termination (use it if you want)
+        //    {
+        //      "name": "tls_server_user_side_tls_termination",
+        //      "type": "TlsServer",
+        //      "settings": {
+        //        "cert-file": $certificate_path$,
+        //        "key-file": $key_path$,
+        //         "min-version": "TLSv1.2",
+        //         "max-version": "TLSv1.3",
+        //         "ciphers": "HIGH:!aNULL:!MD5",
+        //         "session-cache": "none",
+        //         "session-tickets": true,
+        //         "verbose": false
+        //      },
+        //      "next": "tcp-out"
+        //    },
+
+        
+        {
+            "name": "mux-client",
+            "type": "MuxClient",
+            "settings": {
+                "mode": "fixed-connections-count",
+                "per-worker-connections-count": $each_worker_mux_connections_count$
+            },
+            "next": "tcp-out"
+        },
+        {
+            "name": "tcp-out",
+            "type": "TcpConnector",
+            "settings": {
+                "address": "10.10.0.2",
+                "port": $port_to_connect_to_kharej$,
+                "nodelay": true
+            }
+        },
+        {
+            "name": "my tun",
+            "type": "TunDevice",
+            "settings": {
+                "device-name": "wtun1",
+                "device-ip": "10.10.0.1/24"
+            },
+            "next": "ipovsrc"
+        },
+        {
+            "name": "ipovsrc",
+            "type": "IpOverrider",
+            "settings": {
+                "up": {
+                    "source-ip": {
+                        "ipv4": $ip_server_iran$
+                    },
+                    "dest-ip": {
+                        "ipv4": $ip_server_kharej$
+                    }
+                },
+                "down": {
+                    "source-ip": {
+                        "ipv4": "10.10.0.2"
+                    },
+                    "dest-ip": {
+                        "ipv4": "10.10.0.1"
+                    }
+                }
+            },
+            "next": "splitter"
+        },
+        {
+            "name": "splitter",
+            "type": "PacketSplitStream",
+            "settings": {
+                "up": "obfuscator-c",
+                "down": "obfuscator-s"
+            }
+        },
+        {
+            "name": "obfuscator-c",
+            "type": "ObfuscatorClient",
+            "settings": {
+                "method": "xor",
+                "xor_key": 90,
+                "skip": "transport"
+            },
+            "next": "ip-manipulator-up"
+        },
+        {
+            "name": "ip-manipulator-up",
+            "type": "IpManipulator",
+            "settings": {
+                "up-tcp-bit-psh": "packet->cwr",
+                "up-tcp-bit-cwr": "packet->psh"
+            },
+            "next": "rd"
+        },
+        {
+            "name": "rd",
+            "type": "RawSocket",
+            "settings": {
+                "capture-filter-mode": "source-ip",
+                "capture-ip": "12.12.12.12/32"
+            }
+        },
+        {
+            "name": "obfuscator-s",
+            "type": "ObfuscatorServer",
+            "settings": {
+                "method": "xor",
+                "xor_key": 90,
+                "skip": "transport"
+            },
+            "next": "ip-manipulator"
+        },
+        {
+            "name": "ip-manipulator",
+            "type": "IpManipulator",
+            "settings": {
+                "dw-tcp-bit-psh": "packet->rst",
+                "dw-tcp-bit-rst": "packet->psh"
+            },
+            "next": "rd2"
+        },
+        {
+            "name": "rd2",
+            "type": "RawSocket",
+            "settings": {
+                "capture-filter-mode": "source-ip",
+                "capture-ip": $ip_server_kharej$
+            }
+        }
+    ]
+}

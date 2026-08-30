@@ -1,0 +1,89 @@
+{
+    "name": "iran",
+    "nodes": [
+        {
+            "name": "my tun",
+            "type": "TunDevice",
+            "settings": {
+                "device-name": "wtun0",
+                "device-ip": "10.10.0.1/24"
+            },
+            "next": "ipovsrc"
+        },
+        {
+            "name": "ipovsrc",
+            "type": "IpOverrider",
+            "settings": {
+                "direction": "up",
+                "mode": "source-ip",
+                "ipv4": "__IP_IRAN__"
+            },
+            "next": "ipovdest"
+        },
+        {
+            "name": "ipovdest",
+            "type": "IpOverrider",
+            "settings": {
+                "direction": "up",
+                "mode": "dest-ip",
+                "ipv4": "__IP_KHAREJ__"
+            },
+            "next": "manip"
+        },
+        {
+            "name": "manip",
+            "type": "IpManipulator",
+            "settings": {
+                "protoswap": 136
+            },
+            "next": "ipovsrc2"
+        },
+        {
+            "name": "ipovsrc2",
+            "type": "IpOverrider",
+            "settings": {
+                "direction": "down",
+                "mode": "source-ip",
+                "ipv4": "10.10.0.2"
+            },
+            "next": "ipovdest2"
+        },
+        {
+            "name": "ipovdest2",
+            "type": "IpOverrider",
+            "settings": {
+                "direction": "down",
+                "mode": "dest-ip",
+                "ipv4": "10.10.0.1"
+            },
+            "next": "rd"
+        },
+        {
+            "name": "rd",
+            "type": "RawSocket",
+            "settings": {
+                "capture-filter-mode": "source-ip",
+                "capture-ip": "__IP_KHAREJ__"
+            }
+        },
+        {
+            "name": "input1",
+            "type": "TcpListener",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": 443,
+                "nodelay": true
+            },
+            "next": "output1"
+        },
+        {
+            "name": "output1",
+            "type": "TcpConnector",
+            "settings": {
+                "nodelay": true,
+                "address": "10.10.0.2",
+                "port": 443
+            }
+        }
+    ]
+}

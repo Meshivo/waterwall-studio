@@ -1,0 +1,110 @@
+{
+    "name": "iran-tcp-protoswap",
+    "variables": {
+        "ip_server_iran": "1.1.1.1",
+        "ip_server_kharej": "2.2.2.2",
+        "port_listen_iran": 443, // listen 443 iran 
+        "port_service_kharej": 443, // 443 kharej (xray or other service)
+
+        "protoswap_tcp_to_number": 50
+
+        // if you use Tls Termination, uncomment and set these...
+        // "certificate_path": "/root/fullchain.pem",
+        // "key_path": "/root/privkey.pem"
+    },
+    "nodes": [
+        {
+            "name": "users_inbound",
+            "type": "TcpListener",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": $port_listen_iran$,
+                "nodelay": true
+            },
+            "next": "tcp-out"
+        },
+        // Tls Termination (use it if you want)
+        //    {
+        //      "name": "tls_server_user_side_tls_termination",
+        //      "type": "TlsServer",
+        //      "settings": {
+        //        "cert-file": $certificate_path$,
+        //        "key-file": $key_path$,
+        //         "min-version": "TLSv1.2",
+        //         "max-version": "TLSv1.3",
+        //         "ciphers": "HIGH:!aNULL:!MD5",
+        //         "session-cache": "none",
+        //         "session-tickets": true,
+        //         "verbose": false
+        //      },
+        //      "next": "tcp-out"
+        //    },
+        {
+            "name": "tcp-out",
+            "type": "TcpConnector",
+            "settings": {
+                "address": "10.10.0.2",
+                "port": $port_service_kharej$,
+                "nodelay": true
+            }
+        },
+        {
+            "name": "my tun",
+            "type": "TunDevice",
+            "settings": {
+                "device-name": "wtun1",
+                "device-ip": "10.10.0.1/24"
+            },
+            "next": "ipovsrc"
+        },
+        {
+            "name": "ipovsrc",
+            "type": "IpOverrider",
+            "settings": {
+                "up": {
+                    "source-ip": {
+                        "ipv4": $ip_server_iran$
+                    },
+                    "dest-ip": {
+                        "ipv4": $ip_server_kharej$
+                    }
+                },
+                "down": {
+                    "source-ip": {
+                        "ipv4": "10.10.0.2"
+                    },
+                    "dest-ip": {
+                        "ipv4": "10.10.0.1"
+                    }
+                }
+            },
+            "next": "ip-manipulator"
+        },
+        {
+            "name": "ip-manipulator",
+            "type": "IpManipulator",
+            "settings": {
+                "protoswap-tcp": $protoswap_tcp_to_number$
+            },
+            "next": "obfuscator-c"
+        },
+        {
+            "name": "obfuscator-c",
+            "type": "ObfuscatorClient",
+            "settings": {
+                "method": "xor",
+                "xor_key": 90,
+                "skip": "transport"
+            },
+            "next": "rd"
+        },
+        {
+            "name": "rd",
+            "type": "RawSocket",
+            "settings": {
+                "capture-filter-mode": "source-ip",
+                "capture-ip": $ip_server_kharej$
+            }
+        }
+    ]
+}

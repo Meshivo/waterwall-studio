@@ -1,0 +1,21 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+coverage/
+.cache/
+.vite/
+*.tsbuildinfo
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db
+*.log
+*.zip
+
+# Optional local upstream checkouts used only for schema regeneration.
+WaterWall-main/
+WaterWall-Docs-main/
